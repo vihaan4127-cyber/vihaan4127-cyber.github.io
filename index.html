@@ -1,0 +1,3207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vihaan Sai Puvvula — Portfolio</title>
+  <style>
+    /* -------------------------------------------------------------
+       CSS RESET & BASE SETUP
+       Matte Dark Gray Palette: #121417 (BG), #171a1e (Surface)
+    ------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-color: #121417;
+      --bg-surface: #171a1e;
+      --bg-surface-light: #1e2228;
+      --text-main: #e2e4e9;
+      --text-muted: #888d98;
+      --text-dim: #5c606a;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --border-subtle: rgba(255, 255, 255, 0.04);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    }
+
+    html {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    a {
+      color: var(--text-main);
+      text-decoration: underline;
+      text-decoration-color: var(--text-dim);
+      text-underline-offset: 4px;
+      transition: text-decoration-color 0.2s ease, color 0.2s ease;
+    }
+
+    a:hover {
+      text-decoration-color: var(--text-main);
+      color: #ffffff;
+    }
+
+    /* -------------------------------------------------------------
+       HEADER & TOP-RIGHT NAVBAR
+    ------------------------------------------------------------- */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 3rem;
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .nav-link {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.25rem 0;
+      font-family: inherit;
+      font-size: inherit;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #ffffff;
+      border-bottom-color: #ffffff;
+    }
+
+    /* -------------------------------------------------------------
+       PAGE VIEWS MANAGEMENT
+    ------------------------------------------------------------- */
+    .page-view {
+      display: none;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+
+    .page-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      font-family: var(--font-mono);
+    }
+
+    /* -------------------------------------------------------------
+       PAGE 1: HOME
+    ------------------------------------------------------------- */
+    .hero-heading {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .bio-text {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .overview-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+
+    .overview-card h3 {
+      font-size: 0.95rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    /* -------------------------------------------------------------
+       PAGE 2: PROJECTS & INTERACTIVE TABS
+    ------------------------------------------------------------- */
+    .tabs-container {
+      margin-top: 1rem;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.825rem;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      color: #ffffff;
+      border-bottom: 2px solid #ffffff;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .app-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 1.5rem;
+      border-radius: 6px;
+    }
+
+    .converter-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .converter-input, .converter-select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      background: var(--bg-color);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      border-radius: 4px;
+    }
+
+    .converter-select option {
+      background: var(--bg-surface);
+      color: var(--text-main);
+    }
+
+    .error-msg {
+      color: #e57373;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      min-height: 1.2rem;
+    }
+
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .matrix-card {
+      background: var(--bg-color);
+      border: 1px solid var(--border-subtle);
+      padding: 0.75rem;
+      border-radius: 4px;
+    }
+
+    .matrix-card .label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .matrix-card .val {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: #ffffff;
+      word-break: break-all;
+    }
+
+    .poke-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .poke-section h4 {
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.3rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .poke-section ul {
+      padding-left: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .poke-section li {
+      margin-bottom: 0.4rem;
+    }
+
+    .project-item {
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .project-item:last-child {
+      border-bottom: none;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.35rem;
+    }
+
+    .project-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .project-lang {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    /* -------------------------------------------------------------
+       PAGE 3: SKILLS & TOOLS
+    ------------------------------------------------------------- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-category {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-light);
+      padding: 1.25rem;
+      border-radius: 6px;
+    }
+
+    .skill-category h3 {
+      font-size: 0.95rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-category p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* -------------------------------------------------------------
+       FOOTER
+    ------------------------------------------------------------- */
+    footer {
+      border-top: 1px solid var(--border-light);
+      padding-top: 2rem;
+      margin-top: 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .email-button {
+      background: none;
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.825rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .email-button:hover {
+      background-color: var(--bg-surface);
+      border-color: var(--text-dim);
+    }
+
+    /* -------------------------------------------------------------
+       EMBEDDED RETRO GAME: responsive shell + crisp low-res canvas
+    ------------------------------------------------------------- */
+    .game-shell {
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0b1014;
+      box-shadow: 0 18px 42px rgba(0,0,0,.28), 0 0 0 1px rgba(255,255,255,.025);
+      color: #e8f1e6;
+    }
+    .game-topbar {
+      min-height: 46px;
+      padding: 0.65rem 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      color: #f4dfa0;
+      background: linear-gradient(180deg, #243c48, #172b38);
+      border-bottom: 1px solid #49616b;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+    .game-version {
+      margin-left: 0.35rem;
+      color: #8fa78c;
+      font-size: 0.62rem;
+      font-weight: 400;
+    }
+    .game-fullscreen {
+      border: 1px solid #57705c;
+      border-radius: 3px;
+      padding: 0.3rem 0.55rem;
+      background: #23392e;
+      color: #e8f1e6;
+      font: 0.7rem var(--font-mono);
+      cursor: pointer;
+    }
+    .game-fullscreen:hover { background: #304b3b; }
+    .game-stage {
+      padding: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at center, #233b43, #0f1b21);
+    }
+    #gameCanvas {
+      width: 100%;
+      max-width: 720px;
+      min-width: 0;
+      height: auto;
+      aspect-ratio: 3 / 2;
+      flex: 0 1 720px;
+      display: block;
+      border: 2px solid #91a9a1;
+      box-shadow: 0 0 0 3px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.09);
+      background: #162a20;
+      image-rendering: auto;
+      outline: none;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    #gameCanvas:focus-visible { border-color: #d4ef93; }
+    .game-controls-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem;
+      border-top: 1px solid #2c4235;
+      background: #121c17;
+    }
+    .game-instructions {
+      display: grid;
+      gap: 0.22rem;
+      color: #a7b9a8;
+      font: 0.72rem/1.45 var(--font-mono);
+    }
+    .game-instructions strong { color: #e3efd9; }
+    .touch-controls { display: flex; align-items: center; gap: 1rem; }
+    .action-buttons { display: flex; align-items: center; gap: 0.4rem; }
+    .dpad {
+      display: grid;
+      grid-template-columns: repeat(3, 34px);
+      grid-template-rows: repeat(3, 30px);
+      gap: 2px;
+      touch-action: none;
+    }
+    .dpad button, .action-button {
+      border: 1px solid #526858;
+      border-radius: 4px;
+      background: #27382e;
+      color: #eef5e8;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: none;
+    }
+    .dpad button:active, .action-button:active { background: #4b684f; transform: translateY(1px); }
+    .pad-up { grid-column: 2; grid-row: 1; }
+    .pad-left { grid-column: 1; grid-row: 2; }
+    .pad-right { grid-column: 3; grid-row: 2; }
+    .pad-down { grid-column: 2; grid-row: 3; }
+    .action-button {
+      width: 62px;
+      height: 54px;
+      border-radius: 28px;
+      background: #563c45;
+      border-color: #8d6973;
+      color: #fff1ee;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .action-button small { display: block; font-size: 0.48rem; font-weight: 400; }
+    .action-button.button-b { background: #354d68; border-color: #718aa6; color: #f3f6ff; }
+    .action-button.button-b:active { background: #506b8a; }
+    .game-caption {
+      margin-top: 0.6rem;
+      color: var(--text-dim);
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+    .game-shell:fullscreen {
+      width: 100vw;
+      height: 100vh;
+      border: 0;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #0b1014;
+    }
+    .game-shell:fullscreen .game-stage { flex: 1; min-height: 0; }
+    .game-shell:fullscreen #gameCanvas { width: auto; height: 100%; max-width: 100%; max-height: 100%; }
+    @media (max-width: 560px) {
+      .game-controls-wrap { align-items: flex-start; }
+      .game-instructions { font-size: 0.62rem; }
+      .touch-controls { gap: 0.5rem; }
+      .dpad { grid-template-columns: repeat(3, 29px); grid-template-rows: repeat(3, 27px); }
+      .action-button { width: 50px; height: 46px; }
+      .game-version { display: none; }
+    }
+
+    @media (max-width: 650px) {
+      .header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .converter-row {
+        grid-template-columns: 1fr;
+      }
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+    }
+  </style>
+<style>
+.arcade-games {
+    color-scheme: dark;
+    --bg: #090d18;
+    --surface: rgba(18, 25, 43, .88);
+    --surface-strong: #151d31;
+    --surface-soft: #1b2540;
+    --line: rgba(166, 184, 224, .15);
+    --text: #f4f7ff;
+    --muted: #9aa8c6;
+    --accent: #88a8ff;
+    --accent-2: #a18bfa;
+    --green: #4eaa7b;
+    --yellow: #c9a744;
+    --gray: #414b62;
+    --red: #f16b73;
+    --cell: clamp(24px, 2.9vw, 34px);
+    --radius: 22px;
+  }
+.arcade-games,
+.arcade-games * { box-sizing: border-box; }
+.arcade-games button { font: inherit; }
+.arcade-games button:focus-visible { outline: 3px solid #adc2ff; outline-offset: 3px; }
+.arcade-games .app-shell { width: min(1180px, 100% - 32px); margin: 0 auto; padding: 28px 0 48px; }
+.arcade-games .site-header { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin-bottom: 26px; }
+.arcade-games .brand { display: flex; align-items: center; gap: 13px; min-width: 0; }
+.arcade-games .brand-mark { display: grid; place-items: center; width: 44px; height: 44px; flex: 0 0 44px; border: 1px solid rgba(163, 184, 255, .3); border-radius: 15px; background: linear-gradient(145deg, #273e70, #302750); box-shadow: inset 0 1px rgba(255,255,255,.12), 0 8px 24px rgba(0,0,0,.2); }
+.arcade-games .brand-mark svg { width: 23px; height: 23px; }
+.arcade-games .brand-copy { min-width: 0; }
+.arcade-games .eyebrow { margin: 0 0 2px; color: var(--muted); font-size: .71rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+.arcade-games h1 { margin: 0; font-size: clamp(1.25rem, 3vw, 1.65rem); line-height: 1.15; letter-spacing: -.045em; }
+.arcade-games .header-note { color: var(--muted); font-size: .86rem; text-align: right; }
+.arcade-games .tabs { display: flex; width: fit-content; max-width: 100%; gap: 5px; padding: 5px; border: 1px solid var(--line); border-radius: 16px; background: rgba(10, 15, 29, .75); box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+.arcade-games .tab-button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-width: 134px; padding: 12px 18px; color: var(--muted); border: 1px solid transparent; border-radius: 11px; background: transparent; cursor: pointer; font-size: .91rem; font-weight: 750; transition: color .2s, background .2s, border-color .2s, transform .2s; }
+.arcade-games .tab-button:hover { color: var(--text); }
+.arcade-games .tab-button[aria-selected="true"] { color: #fff; border-color: rgba(164, 184, 255, .25); background: linear-gradient(135deg, rgba(80, 111, 202, .34), rgba(122, 92, 184, .22)); box-shadow: 0 4px 16px rgba(0,0,0,.18); }
+.arcade-games .tab-button:active { transform: scale(.98); }
+.arcade-games .tab-icon { display: inline-grid; place-items: center; width: 22px; height: 22px; font-size: 1rem; }
+.arcade-games main { margin-top: 20px; }
+.arcade-games .game-panel { display: none; animation: arcade-panel-in .28s ease both; }
+.arcade-games .game-panel.active { display: block; }
+@keyframes arcade-panel-in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+.arcade-games .panel-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; margin: 0 0 18px; }
+.arcade-games .panel-heading h2 { margin: 0 0 5px; font-size: clamp(1.45rem, 3vw, 2rem); line-height: 1.1; letter-spacing: -.045em; }
+.arcade-games .panel-heading p { margin: 0; color: var(--muted); font-size: .91rem; line-height: 1.55; }
+.arcade-games .pill { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; color: #bdcaff; border: 1px solid rgba(136, 168, 255, .2); border-radius: 99px; background: rgba(87, 116, 204, .1); font-size: .74rem; font-weight: 750; }
+.arcade-games .pill-dot { width: 6px; height: 6px; background: #8ba7ff; border-radius: 50%; box-shadow: 0 0 10px #8ba7ff; }
+.arcade-games .card { border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(150deg, rgba(21, 29, 49, .93), rgba(14, 20, 35, .96)); box-shadow: 0 20px 60px rgba(0,0,0,.19), inset 0 1px rgba(255,255,255,.025); }
+.arcade-games .wordle-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(275px, .82fr); align-items: start; gap: 18px; }
+.arcade-games .wordle-board-card { display: flex; flex-direction: column; align-items: center; padding: 24px 18px 20px; min-height: 590px; }
+.arcade-games .wordle-board { display: grid; grid-template-columns: repeat(5, clamp(42px, 10.5vw, 58px)); grid-template-rows: repeat(6, clamp(42px, 10.5vw, 58px)); gap: 6px; margin: 1px auto 15px; }
+.arcade-games .word-tile { display: grid; place-items: center; border: 2px solid #35415b; border-radius: 9px; background: rgba(10, 15, 27, .45); color: #fff; font-size: clamp(1.3rem, 4vw, 1.75rem); font-weight: 850; line-height: 1; user-select: none; text-transform: uppercase; }
+.arcade-games .word-tile.filled { border-color: #687896; animation: arcade-pop .1s ease-out; }
+@keyframes arcade-pop { 0% { transform: scale(.92); } 100% { transform: scale(1); } }
+.arcade-games .word-tile.correct,
+.arcade-games .key.correct { background: var(--green); border-color: var(--green); color: white; }
+.arcade-games .word-tile.present,
+.arcade-games .key.present { background: var(--yellow); border-color: var(--yellow); color: white; }
+.arcade-games .word-tile.absent,
+.arcade-games .key.absent { background: var(--gray); border-color: var(--gray); color: white; }
+.arcade-games .word-tile.reveal { animation: arcade-tile-flip .48s ease both; animation-delay: calc(var(--i, 0) * 75ms); }
+@keyframes arcade-tile-flip { 0% { transform: rotateX(0); } 48% { transform: rotateX(90deg); } 52% { transform: rotateX(90deg); } 100% { transform: rotateX(0); } }
+.arcade-games .wordle-message { min-height: 25px; margin: 0 0 8px; color: #ced8f1; font-size: .86rem; font-weight: 700; text-align: center; }
+.arcade-games .wordle-message.good { color: #82e2ae; }
+.arcade-games .wordle-message.bad { color: #ff9ca1; }
+.arcade-games .keyboard { display: flex; width: 100%; max-width: 530px; flex-direction: column; gap: 7px; margin-top: auto; }
+.arcade-games .keyboard-row { display: flex; justify-content: center; gap: 5px; }
+.arcade-games .key { display: grid; place-items: center; flex: 1 1 0; min-width: 0; height: 48px; padding: 0 3px; border: 1px solid #3b4761; border-radius: 8px; background: #303b54; color: #eef2ff; cursor: pointer; font-size: .92rem; font-weight: 800; text-transform: uppercase; transition: filter .15s, transform .12s, background .2s; }
+.arcade-games .key:hover { filter: brightness(1.15); }
+.arcade-games .key:active { transform: translateY(1px) scale(.97); }
+.arcade-games .key.wide { flex: 1.55 1 0; font-size: .7rem; letter-spacing: -.02em; }
+.arcade-games .wordle-side { display: grid; gap: 14px; }
+.arcade-games .side-card { padding: 20px; }
+.arcade-games .side-card h3 { margin: 0 0 10px; font-size: .98rem; letter-spacing: -.02em; }
+.arcade-games .side-card p { margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.65; }
+.arcade-games .legend { display: grid; gap: 11px; margin-top: 16px; }
+.arcade-games .legend-item { display: flex; align-items: center; gap: 10px; color: #d5ddf0; font-size: .83rem; }
+.arcade-games .legend-swatch { width: 22px; height: 22px; flex: 0 0 22px; border-radius: 6px; box-shadow: inset 0 1px rgba(255,255,255,.18); }
+.arcade-games .legend-swatch.correct { background: var(--green); }
+.arcade-games .legend-swatch.present { background: var(--yellow); }
+.arcade-games .legend-swatch.absent { background: var(--gray); }
+.arcade-games .button-row { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
+.arcade-games .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 11px; background: #202a43; color: var(--text); cursor: pointer; font-size: .83rem; font-weight: 800; transition: background .2s, border-color .2s, transform .15s, opacity .2s; }
+.arcade-games .btn:hover:not(:disabled) { background: #2a3654; border-color: rgba(160, 180, 255, .3); }
+.arcade-games .btn:active:not(:disabled) { transform: translateY(1px); }
+.arcade-games .btn.primary { color: white; border-color: rgba(142, 166, 255, .44); background: linear-gradient(135deg, #506dc2, #6751a1); }
+.arcade-games .btn.primary:hover:not(:disabled) { background: linear-gradient(135deg, #5d7bd3, #745db0); }
+.arcade-games .btn:disabled { opacity: .42; cursor: not-allowed; }
+.arcade-games .mini-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
+.arcade-games .mini-stat { padding: 12px 8px; border: 1px solid var(--line); border-radius: 12px; background: rgba(7, 12, 24, .25); text-align: center; }
+.arcade-games .mini-stat strong { display: block; font-size: 1.25rem; letter-spacing: -.04em; }
+.arcade-games .mini-stat span { display: block; margin-top: 3px; color: var(--muted); font-size: .66rem; font-weight: 750; text-transform: uppercase; letter-spacing: .07em; }
+.arcade-games .section-kicker { color: #8496bc; font-size: .7rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+/* Battleship */
+.arcade-games .battle-card { padding: 20px; }
+.arcade-games .battle-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.arcade-games .battle-status-wrap { min-width: 0; }
+.arcade-games .battle-status-label { margin: 0 0 4px; color: var(--muted); font-size: .68rem; font-weight: 850; letter-spacing: .13em; text-transform: uppercase; }
+.arcade-games .battle-status { margin: 0; font-size: 1.02rem; font-weight: 800; letter-spacing: -.025em; }
+.arcade-games .battle-status[data-tone="good"] { color: #7fe0a9; }
+.arcade-games .battle-status[data-tone="bad"] { color: #ff949b; }
+.arcade-games .battle-status[data-tone="warn"] { color: #ffcf78; }
+.arcade-games .battle-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.arcade-games .battle-stats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin: 16px 0 19px; }
+.arcade-games .battle-stat { display: flex; align-items: center; gap: 11px; min-width: 0; padding: 13px; border: 1px solid var(--line); border-radius: 13px; background: rgba(6, 11, 22, .25); }
+.arcade-games .stat-icon { display: grid; place-items: center; width: 35px; height: 35px; flex: 0 0 35px; border-radius: 11px; background: rgba(116, 143, 225, .13); font-size: 1rem; }
+.arcade-games .battle-stat strong { display: block; font-size: 1.16rem; line-height: 1.15; }
+.arcade-games .battle-stat span { display: block; margin-top: 4px; color: var(--muted); font-size: .69rem; line-height: 1.2; }
+.arcade-games .boards { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px; }
+.arcade-games .board-panel { min-width: 0; padding: 17px 13px 14px; border: 1px solid var(--line); border-radius: 17px; background: rgba(8, 14, 27, .34); }
+.arcade-games .board-heading { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin: 0 0 4px; }
+.arcade-games .board-heading h3 { margin: 0; font-size: 1rem; letter-spacing: -.03em; }
+.arcade-games .board-chip { padding: 5px 7px; border: 1px solid var(--line); border-radius: 7px; color: var(--muted); font-size: .61rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.arcade-games .board-description { min-height: 32px; margin: 0 0 10px; color: var(--muted); font-size: .76rem; line-height: 1.5; }
+.arcade-games .battleship-grid { display: grid; grid-template-columns: minmax(12px, .6fr) repeat(10, minmax(0, 1fr)); gap: 3px; width: 100%; max-width: 500px; margin: 0 auto; padding: 6px; border: 1px solid rgba(121, 157, 231, .2); border-radius: 11px; background: rgba(50, 81, 132, .13); }
+.arcade-games .grid-cell { position: relative; display: grid; place-items: center; min-width: 0; aspect-ratio: 1; padding: 0; overflow: hidden; border: 1px solid rgba(114, 145, 202, .17); border-radius: 3px; background: #172945; color: #d7e6ff; cursor: crosshair; transition: background .15s, border-color .15s, transform .15s; }
+.arcade-games .grid-cell:before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(145deg, rgba(255,255,255,.045), transparent 55%); }
+.arcade-games .grid-cell:hover:not(:disabled) { z-index: 1; border-color: #91b6ff; background: #24416a; transform: scale(1.04); }
+.arcade-games .grid-cell:disabled { cursor: default; }
+.arcade-games .grid-cell.ship-cell { background: #5b6d8a; border-color: #7188ac; box-shadow: inset 0 1px rgba(255,255,255,.17), inset 0 -2px rgba(0,0,0,.15); }
+.arcade-games .grid-cell.ship-cell:after { content: ""; position: absolute; width: 38%; height: 38%; border: 1px solid rgba(255,255,255,.19); border-radius: 2px; }
+.arcade-games .grid-cell.miss-cell { background: #213e5e; border-color: #2b557f; color: #bdd8fb; }
+.arcade-games .grid-cell.miss-cell .marker { animation: arcade-ripple .45s ease-out both; }
+.arcade-games .grid-cell.hit-cell { border-color: #ff747d; background: radial-gradient(circle at center, #ffb078 0 14%, #fa656e 18% 35%, #853c56 60%, #3b2946 100%); color: white; box-shadow: 0 0 9px rgba(255, 93, 110, .32); }
+.arcade-games .grid-cell.hit-cell .marker { animation: arcade-blast .32s cubic-bezier(.18,.8,.35,1.25) both; }
+.arcade-games .marker { position: relative; z-index: 2; font-size: clamp(.6rem, 1.5vw, 1.05rem); font-weight: 900; line-height: 1; }
+@keyframes arcade-ripple { from { transform: scale(.2); opacity: .2; } to { transform: scale(1); opacity: 1; } }
+@keyframes arcade-blast { 0% { transform: scale(.2) rotate(-25deg); opacity: .25; } 75% { transform: scale(1.24); } 100% { transform: scale(1); opacity: 1; } }
+.arcade-games .axis-labels { display: grid; grid-template-columns: minmax(12px, .6fr) repeat(10, minmax(0, 1fr)); gap: 3px; width: calc(100% - 12px); margin: 0 auto 4px; text-align: center; color: #8091b4; font-size: .6rem; font-weight: 800; }
+.arcade-games .axis-labels span { min-width: 0; }
+.arcade-games .row-index { display: grid; place-items: center; min-width: 0; aspect-ratio: 1; color: #91a2c4; font-size: clamp(.5rem, 1.2vw, .7rem); font-weight: 800; }
+.arcade-games .fleet-list { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; margin-top: 16px; }
+.arcade-games .fleet-item { min-width: 0; padding: 10px 8px; border: 1px solid var(--line); border-radius: 10px; background: rgba(6, 10, 20, .22); }
+.arcade-games .fleet-item.sunk { opacity: .48; }
+.arcade-games .fleet-bar { display: flex; gap: 2px; margin-bottom: 8px; }
+.arcade-games .fleet-bar span { display: block; height: 5px; flex: 1; border-radius: 2px; background: #8294b3; }
+.arcade-games .fleet-item.sunk .fleet-bar span { background: var(--red); }
+.arcade-games .fleet-item strong { display: block; overflow: hidden; color: #e2e9fb; font-size: .69rem; text-overflow: ellipsis; white-space: nowrap; }
+.arcade-games .fleet-item small { display: block; margin-top: 3px; color: var(--muted); font-size: .63rem; }
+.arcade-games .battle-footer { display: flex; justify-content: space-between; gap: 14px; align-items: center; margin-top: 15px; color: var(--muted); font-size: .75rem; line-height: 1.55; }
+.arcade-games .turn-indicator { display: inline-flex; align-items: center; gap: 7px; flex: 0 0 auto; }
+.arcade-games .turn-dot { width: 7px; height: 7px; border-radius: 50%; background: #82e0a7; }
+.arcade-games .turn-dot.waiting { background: #ffcc76; }
+.arcade-games .turn-dot.finished { background: #a3abc2; }
+.arcade-games footer { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; color: #667493; font-size: .73rem; }
+.arcade-games .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+@media (max-width: 900px) {.arcade-games .wordle-layout { grid-template-columns: minmax(0,1fr); }
+.arcade-games .wordle-board-card { min-height: 0; gap: 8px; }
+.arcade-games .keyboard { margin-top: 0; }
+.arcade-games .wordle-side { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.arcade-games .wordle-side .side-card:last-child { grid-column: 1 / -1; }
+.arcade-games .boards { gap: 12px; }
+.arcade-games .battle-card { padding: 15px; }
+.arcade-games .battle-stat { padding: 10px; gap: 8px; }
+.arcade-games .stat-icon { width: 30px; height: 30px; flex-basis: 30px; }}
+@media (max-width: 650px) {.arcade-games .app-shell { width: min(100% - 22px, 550px); padding-top: 16px; }
+.arcade-games .site-header { align-items: flex-start; gap: 12px; margin-bottom: 19px; }
+.arcade-games .brand-mark { width: 39px; height: 39px; flex-basis: 39px; border-radius: 13px; }
+.arcade-games .header-note { display: none; }
+.arcade-games .tabs { width: 100%; }
+.arcade-games .tab-button { flex: 1; min-width: 0; padding: 10px 12px; }
+.arcade-games main { margin-top: 16px; }
+.arcade-games .panel-heading { align-items: flex-start; }
+.arcade-games .pill { margin-top: 3px; font-size: .65rem; }
+.arcade-games .wordle-board-card { padding: 16px 9px 14px; }
+.arcade-games .wordle-board { gap: 5px; grid-template-columns: repeat(5, clamp(40px, 12vw, 53px)); grid-template-rows: repeat(6, clamp(40px, 12vw, 53px)); }
+.arcade-games .key { height: 43px; border-radius: 7px; font-size: .82rem; }
+.arcade-games .key.wide { font-size: .63rem; }
+.arcade-games .wordle-side { grid-template-columns: minmax(0,1fr); }
+.arcade-games .wordle-side .side-card:last-child { grid-column: auto; }
+.arcade-games .side-card { padding: 16px; }
+.arcade-games .battle-toolbar { align-items: flex-start; flex-direction: column; }
+.arcade-games .battle-actions { width: 100%; justify-content: flex-start; }
+.arcade-games .battle-stats { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 7px; }
+.arcade-games .boards { grid-template-columns: minmax(0,1fr); }
+.arcade-games .board-panel { padding: 14px 12px; }
+.arcade-games .battleship-grid { max-width: min(100%, 420px); gap: 3px; }
+.arcade-games .marker { font-size: clamp(.7rem, 3.2vw, 1rem); }
+.arcade-games .fleet-list { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.arcade-games .battle-footer { align-items: flex-start; flex-direction: column; }
+.arcade-games footer { flex-direction: column; margin-top: 19px; }}
+@media (max-width: 360px) {.arcade-games .app-shell { width: calc(100% - 16px); }
+.arcade-games .brand-copy .eyebrow { font-size: .62rem; }
+.arcade-games h1 { font-size: 1.2rem; }
+.arcade-games .wordle-board { gap: 4px; grid-template-columns: repeat(5, 39px); grid-template-rows: repeat(6, 39px); }
+.arcade-games .key { height: 39px; padding: 0 1px; }
+.arcade-games .battleship-grid { padding: 4px; gap: 2px; }
+.arcade-games .battle-card { padding: 10px; }
+.arcade-games .battle-stat { padding: 8px; }}
+@media (prefers-reduced-motion: reduce) {.arcade-games,
+.arcade-games *,
+.arcade-games::before,
+.arcade-games *::before,
+.arcade-games::after,
+.arcade-games *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }}
+
+/* The arcade games live inside the portfolio Projects view; all styles are scoped. */
+.arcade-games {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  color: var(--text);
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(ellipse at 14% -5%, rgba(76, 102, 200, .16), transparent 36rem),
+    radial-gradient(ellipse at 100% 18%, rgba(119, 83, 190, .11), transparent 35rem),
+    rgba(9, 13, 24, .38);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: clamp(12px, 2vw, 22px);
+  overflow: hidden;
+}
+.arcade-games, .arcade-games * { box-sizing: border-box; }
+.arcade-games button { font-family: inherit; }
+.arcade-games .panel-heading { flex-wrap: wrap; }
+@media (max-width: 650px) {
+  .arcade-games { padding: 10px; border-radius: 12px; }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- TOP HEADER & NAVBAR -->
+  <header class="header-bar">
+    <div class="brand-title">Vihaan Sai Puvvula</div>
+    <nav>
+      <button class="nav-link active" onclick="navigateTo('page-home', event)">Home</button>
+      <button class="nav-link" onclick="navigateTo('page-projects', event)">Projects</button>
+      <button class="nav-link" onclick="navigateTo('page-skills', event)">Languages</button>
+      <button class="nav-link" onclick="navigateTo('page-contact', event)">Contact</button>
+    </nav>
+  </header>
+
+  <!-- =============================================================
+       PAGE 1: HOME
+  ============================================================= -->
+  <main id="page-home" class="page-view active">
+    <h1 class="hero-heading">High School Senior & Developer</h1>
+    <div class="hero-sub">Aspiring Computer Science & Cybersecurity Major</div>
+
+    <p class="bio-text">
+      Welcome to my portfolio. I am a 12th grader with an interest in software engineering, game engine development, fundamental data structures, and computer science concepts. I primarily code using Java, C++, and HTML/CSS.
+    </p>
+
+    <div class="overview-card">
+      <h3>Portfolio Navigation</h3>
+      <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">
+        Use the top-right menu to navigate. In <strong>Projects</strong>, play the Pokémon FireRed-inspired adventure, Wordle, or Battleship, try the interactive Base Converter, and explore my software projects.
+      </p>
+    </div>
+  </main>
+
+  <!-- =============================================================
+       PAGE 2: PROJECTS
+  ============================================================= -->
+  <main id="page-projects" class="page-view">
+    <h2 class="section-title">Projects & Interactive Work</h2>
+
+    <div class="tabs-container">
+      <div class="tab-buttons">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-pokemon')">Pokémon FireRed Engine</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-wordle')">Wordle</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-battleship')">Battleship</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-converter')">Base Converter App</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-repos')">Software Projects</button>
+      </div>
+
+      <!-- POKEMON TAB -->
+      <div id="tab-pokemon" class="tab-content active">
+        <div class="app-box">
+          <h3>APCS Final Project: Pokémon FireRed Engine</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+            A polished HTML5 Canvas fan-made recreation of the FireRed opening, with smooth tile movement, four-way facing, original pixel-art sprites, and researched Kanto map layouts.
+          </p>
+          
+          <!-- EMBEDDED CANVAS GAME: graphics are rendered in code; no external assets required. -->
+          <div class="poke-section" style="margin-bottom: 2rem;">
+            <div class="game-shell" id="gameShell">
+              <div class="game-topbar">
+                <span>POKÉMON FIRE RED <span class="game-version">KANTO OPENING · FAN-MADE GAME</span></span>
+                <button type="button" class="game-fullscreen" onclick="toggleGameFullscreen()">Fullscreen</button>
+              </div>
+              <div class="game-stage">
+                <canvas id="gameCanvas" width="720" height="480" tabindex="0" aria-label="Pokémon FireRed-inspired opening adventure. Use arrow keys or WASD to move. Press Z or Enter for A, and X for B."></canvas>
+              </div>
+              <div class="game-controls-wrap">
+                <div class="game-instructions">
+                  <strong>Controls</strong>
+                  <span>Move: Arrow Keys / WASD</span>
+                  <span>A button: Z / Enter / Space — interact, confirm, advance</span>
+                  <span>B button: X — back or cancel menus</span>
+                </div>
+                <div class="touch-controls" aria-label="Touch controls">
+                  <div class="dpad">
+                    <button type="button" class="pad-up" data-game-key="ArrowUp" aria-label="Move up">▲</button>
+                    <button type="button" class="pad-left" data-game-key="ArrowLeft" aria-label="Move left">◀</button>
+                    <button type="button" class="pad-right" data-game-key="ArrowRight" aria-label="Move right">▶</button>
+                    <button type="button" class="pad-down" data-game-key="ArrowDown" aria-label="Move down">▼</button>
+                  </div>
+                  <div class="action-buttons"><button type="button" class="action-button" data-game-key="KeyZ" aria-label="A button">A <small>Z · SELECT</small></button><button type="button" class="action-button button-b" data-game-key="KeyX" aria-label="B button">B <small>X · BACK</small></button></div>
+                </div>
+              </div>
+            </div>
+            <p class="game-caption">Play through Red’s house, Pallet Town, Professor Oak’s Lab, and Route 1. Withdraw the Potion from the PC, choose Bulbasaur, Squirtle, or Charmander, battle Blue, and encounter Pidgey or Rattata. Original Canvas sprites use canonical character and Pokémon names.</p>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+              <a href="pokemon-game.jar" download style="display: inline-block; background: var(--text-main); color: var(--bg-color); padding: 0.5rem 1rem; font-family: var(--font-mono); font-size: 0.85rem; text-decoration: none; border-radius: 4px; font-weight: bold;">Download Java Project (.JAR)</a>
+            </div>
+          </div>
+
+          <div class="poke-section">
+            <h4>Objectives & Scope</h4>
+            <ul>
+              <li>Developed a custom Java game engine handling 2D tile-based movement and collisions.</li>
+              <li>Implemented turn-based battle mechanics with Pokémon stats and damage formulas.</li>
+              <li>Programmed narrative cutscenes: Player house, Professor Oak introduction, and Starter choice (Charmander, Squirtle, Bulbasaur).</li>
+              <li>Built local save and load state management.</li>
+            </ul>
+          </div>
+
+          <div class="poke-section">
+            <h4>World System & Collision Logic</h4>
+            <ul>
+              <li>Pixel grid overworld system managed by a Boundary Manager class.</li>
+              <li>Resolved sprite movement glitches into walls by building a strict grid-locking mechanism that stops player movement until target tiles are reachable.</li>
+            </ul>
+          </div>
+
+          <div class="poke-section">
+            <h4>Technical Outcomes & Growth</h4>
+            <ul>
+              <li>Navigated AI engineering bottlenecks regarding context windows, file size limits, and prompt structure.</li>
+              <li>Mastered complex State Machine architecture (Title, Overworld, Battle, and Menu states).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORDLE TAB -->
+      <div id="tab-wordle" class="tab-content">
+        <div class="arcade-games">
+          <div class="panel-heading">
+<div><h2>Wordle</h2><p>Find the five-letter word in six guesses.</p></div>
+<div class="pill"><span class="pill-dot"></span> Daily brain workout</div>
+</div>
+<div class="wordle-layout">
+<section aria-label="Wordle game board" class="card wordle-board-card">
+<div aria-label="Six rows of five letters" class="wordle-board" id="wordle-board"></div>
+<p aria-live="polite" class="wordle-message" id="wordle-message">Guess the word to get started.</p>
+<div aria-label="On-screen keyboard" class="keyboard" id="wordle-keyboard">
+<div class="keyboard-row" data-row="QWERTYUIOP"></div>
+<div class="keyboard-row" data-row="ASDFGHJKL"></div>
+<div class="keyboard-row keyboard-row-last" data-row="ZXCVBNM"></div>
+</div>
+</section>
+<aside class="wordle-side">
+<section class="card side-card">
+<div class="section-kicker">How to play</div>
+<h3 style="margin-top:8px">Six tries. One word.</h3>
+<p>Enter any five-letter word, then use the color clues to narrow it down. You can type on your keyboard or tap the letters below the board.</p>
+<div class="legend">
+<div class="legend-item"><span class="legend-swatch correct"></span><span><strong>Correct</strong> — right letter, right spot</span></div>
+<div class="legend-item"><span class="legend-swatch present"></span><span><strong>Present</strong> — right letter, wrong spot</span></div>
+<div class="legend-item"><span class="legend-swatch absent"></span><span><strong>Absent</strong> — not in the word</span></div>
+</div>
+</section>
+<section class="card side-card">
+<div class="section-kicker">This round</div>
+<h3 style="margin-top:8px">Your progress</h3>
+<div class="mini-stats">
+<div class="mini-stat"><strong id="stat-tries">0/6</strong><span>Guesses</span></div>
+<div class="mini-stat"><strong id="stat-wins">0</strong><span>Wins</span></div>
+<div class="mini-stat"><strong id="stat-streak">0</strong><span>Streak</span></div>
+</div>
+<div class="button-row">
+<button class="btn primary" id="wordle-again" type="button">↻ Play Again</button>
+<button class="btn" id="wordle-clear" type="button">⌫ Clear row</button>
+</div>
+</section>
+<section class="card side-card">
+<div class="section-kicker">Quick tip</div>
+<h3 style="margin-top:8px">Start with variety</h3>
+<p>A first guess with several common vowels and distinct consonants gives you more information than repeating letters.</p>
+</section>
+</aside>
+</div>
+        </div>
+      </div>
+
+      <!-- BATTLESHIP TAB -->
+      <div id="tab-battleship" class="tab-content">
+        <div class="arcade-games">
+          <div class="panel-heading">
+<div><h2>Battleship</h2><p>Deploy your fleet, then outmaneuver the computer.</p></div>
+<div class="pill"><span class="pill-dot"></span> Player vs. AI</div>
+</div>
+<section class="card battle-card">
+<div class="battle-toolbar">
+<div class="battle-status-wrap">
+<p class="battle-status-label">Battle status</p>
+<p aria-live="polite" class="battle-status" data-tone="warn" id="battle-status">Fleet ready. Randomize your ships or start the battle.</p>
+</div>
+<div class="battle-actions">
+<button class="btn" id="randomize-fleet" type="button">⤨ Randomize Fleet</button>
+<button class="btn primary" id="start-battle" type="button">▶ Start Battle</button>
+<button class="btn" id="restart-battle" type="button">↻ Restart Game</button>
+</div>
+</div>
+<div aria-label="Battle statistics" class="battle-stats">
+<div class="battle-stat"><div aria-hidden="true" class="stat-icon">◎</div><div><strong id="player-ships-stat">5</strong><span>Your ships afloat</span></div></div>
+<div class="battle-stat"><div aria-hidden="true" class="stat-icon">✦</div><div><strong id="enemy-ships-stat">5</strong><span>Enemy ships afloat</span></div></div>
+<div class="battle-stat"><div aria-hidden="true" class="stat-icon">⌖</div><div><strong id="player-shots-stat">0 / 0</strong><span>Your hits / misses</span></div></div>
+<div class="battle-stat"><div aria-hidden="true" class="stat-icon">◉</div><div><strong id="enemy-shots-stat">0 / 0</strong><span>AI hits / misses</span></div></div>
+</div>
+<div class="boards">
+<section aria-labelledby="your-board-title" class="board-panel">
+<div class="board-heading"><h3 id="your-board-title">Your Board</h3><span class="board-chip">Fleet visible</span></div>
+<p class="board-description">Protect your ships. The computer will fire here after each of your attacks.</p>
+<div aria-hidden="true" class="axis-labels" id="your-axis"></div>
+<div aria-label="Your 10 by 10 ocean grid" class="battleship-grid" id="player-grid"></div>
+</section>
+<section aria-labelledby="target-board-title" class="board-panel">
+<div class="board-heading"><h3 id="target-board-title">Target Grid</h3><span class="board-chip">Enemy hidden</span></div>
+<p class="board-description">Choose a coordinate to attack. Red marks a hit; blue marks a miss.</p>
+<div aria-hidden="true" class="axis-labels" id="target-axis"></div>
+<div aria-label="Target 10 by 10 ocean grid" class="battleship-grid" id="target-grid"></div>
+</section>
+</div>
+<div aria-label="Your fleet status" class="fleet-list" id="fleet-list"></div>
+<div class="battle-footer">
+<span>Fleet: Carrier (5), Battleship (4), Cruiser (3), Submarine (3), Destroyer (2). Ships cannot overlap; all placements are randomized.</span>
+<span class="turn-indicator"><span class="turn-dot waiting" id="turn-dot"></span><span id="turn-label">Setup phase</span></span>
+</div>
+</section>
+        </div>
+      </div>
+
+      <!-- BASE CONVERTER TAB -->
+      <div id="tab-converter" class="tab-content">
+        <div class="app-box">
+          <h3>Interactive Base Converter</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+            Convert values between bases (2 through 36) in real-time.
+          </p>
+
+          <div class="converter-row">
+            <input type="text" id="baseInput" class="converter-input" placeholder="Enter number..." value="255" oninput="runBaseConversion()">
+            
+            <select id="fromBase" class="converter-select" onchange="runBaseConversion()">
+              <option value="2">From Base 2 (Binary)</option>
+              <option value="8">From Base 8 (Octal)</option>
+              <option value="10" selected>From Base 10 (Dec)</option>
+              <option value="16">From Base 16 (Hex)</option>
+              <option value="32">From Base 32</option>
+              <option value="36">From Base 36</option>
+            </select>
+
+            <select id="toBase" class="converter-select" onchange="runBaseConversion()">
+              <option value="2" selected>To Base 2 (Binary)</option>
+              <option value="8">To Base 8 (Octal)</option>
+              <option value="10">To Base 10 (Dec)</option>
+              <option value="16">To Base 16 (Hex)</option>
+              <option value="32">To Base 32</option>
+              <option value="36">To Base 36</option>
+            </select>
+          </div>
+
+          <div id="converterError" class="error-msg"></div>
+
+          <div class="matrix-grid">
+            <div class="matrix-card">
+              <div class="label">Target Output</div>
+              <div class="val" id="targetOutput">11111111</div>
+            </div>
+            <div class="matrix-card">
+              <div class="label">Decimal (10)</div>
+              <div class="val" id="decVal">255</div>
+            </div>
+            <div class="matrix-card">
+              <div class="label">Binary (2)</div>
+              <div class="val" id="binVal">11111111</div>
+            </div>
+            <div class="matrix-card">
+              <div class="label">Hexadecimal (16)</div>
+              <div class="val" id="hexVal">FF</div>
+            </div>
+            <div class="matrix-card">
+              <div class="label">Octal (8)</div>
+              <div class="val" id="octVal">377</div>
+            </div>
+            <div class="matrix-card">
+              <div class="label">Base 36</div>
+              <div class="val" id="b36Val">73</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADDITIONAL PROJECTS TAB -->
+      <div id="tab-repos" class="tab-content">
+        <div class="project-item">
+          <div class="project-header">
+            <span class="project-title">C++ Console Utilities & Dynamic Memory Lab</span>
+            <span class="project-lang">C++ / GCC</span>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+            A collection of CLI programs practicing safe dynamic memory allocation, pointer manipulation, and file I/O operations in standard C++.
+          </p>
+        </div>
+
+        <div class="project-item">
+          <div class="project-header">
+            <span class="project-title">Java Encryption & Passphrase Utility</span>
+            <span class="project-lang">Java / Cryptography Standard Lib</span>
+          </div>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+            A Java program using standard library cryptography functions to encrypt and decrypt text files locally using passphrases.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =============================================================
+       PAGE 3: LANGUAGES & TOOLS
+  ============================================================= -->
+  <main id="page-skills" class="page-view">
+    <h2 class="section-title">Languages & Core Concepts</h2>
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h3>Primary Languages</h3>
+        <p>C++, Java, HTML5, CSS3</p>
+      </div>
+      <div class="skill-category">
+        <h3>Programming Concepts</h3>
+        <p>Object-Oriented Design, State Machines, Data Structures, Base Conversions</p>
+      </div>
+      <div class="skill-category">
+        <h3>Tools & Environment</h3>
+        <p>Linux Terminal, VS Code, GCC Compiler, Git</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- =============================================================
+       PAGE 4: CONTACT
+  ============================================================= -->
+  <main id="page-contact" class="page-view">
+    <h2 class="section-title">Contact Information</h2>
+    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+      Feel free to reach out regarding college applications, computer science projects, or software engineering.
+    </p>
+    <p style="font-family: var(--font-mono); font-size: 0.9rem; color: #ffffff; margin-bottom: 1.5rem;">
+      Email: <a href="mailto:vihaan@example.com">vihaan@example.com</a>
+    </p>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>&copy; Vihaan Sai Puvvula</span>
+    <button class="email-button" onclick="copyEmail()">Copy Email Address</button>
+  </footer>
+
+  <script>
+    // Page Routing
+    function navigateTo(pageId, event) {
+      const views = document.querySelectorAll('.page-view');
+      views.forEach(v => v.classList.remove('active'));
+
+      const navLinks = document.querySelectorAll('.nav-link');
+      navLinks.forEach(l => l.classList.remove('active'));
+
+      document.getElementById(pageId).classList.add('active');
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+      }
+    }
+
+    // Projects Tab Switching
+    function openTab(evt, tabName) {
+      const tabContents = document.getElementsByClassName("tab-content");
+      for (let i = 0; i < tabContents.length; i++) {
+        tabContents[i].classList.remove("active");
+      }
+      const tabBtns = document.getElementsByClassName("tab-btn");
+      for (let i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].classList.remove("active");
+      }
+      document.getElementById(tabName).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+
+    // Base Converter Core Logic
+    function parseCustomBase(str, base) {
+      str = str.trim().toUpperCase();
+      if (!str) return null;
+      
+      const validChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".slice(0, base);
+      for (let char of str) {
+        if (!validChars.includes(char)) {
+          return { error: `Invalid character '${char}' for Base ${base}. Allowed digits: ${validChars}` };
+        }
+      }
+
+      try {
+        let decimalVal = 0n;
+        const b = BigInt(base);
+        for (let i = 0; i < str.length; i++) {
+          const digit = BigInt(validChars.indexOf(str[i]));
+          decimalVal = decimalVal * b + digit;
+        }
+        return { val: decimalVal };
+      } catch (e) {
+        return { error: "Value out of range." };
+      }
+    }
+
+    function runBaseConversion() {
+      const rawInput = document.getElementById("baseInput").value;
+      const fromBase = parseInt(document.getElementById("fromBase").value, 10);
+      const toBase = parseInt(document.getElementById("toBase").value, 10);
+      const errorDiv = document.getElementById("converterError");
+
+      if (!rawInput.trim()) {
+        errorDiv.innerText = "";
+        document.getElementById("targetOutput").innerText = "-";
+        document.getElementById("decVal").innerText = "-";
+        document.getElementById("binVal").innerText = "-";
+        document.getElementById("hexVal").innerText = "-";
+        document.getElementById("octVal").innerText = "-";
+        document.getElementById("b36Val").innerText = "-";
+        return;
+      }
+
+      const parsed = parseCustomBase(rawInput, fromBase);
+
+      if (parsed.error) {
+        errorDiv.innerText = parsed.error;
+        document.getElementById("targetOutput").innerText = "ERR";
+        return;
+      }
+
+      errorDiv.innerText = "";
+      const dec = parsed.val;
+
+      document.getElementById("targetOutput").innerText = dec.toString(toBase).toUpperCase();
+      document.getElementById("decVal").innerText = dec.toString(10);
+      document.getElementById("binVal").innerText = dec.toString(2);
+      document.getElementById("hexVal").innerText = dec.toString(16).toUpperCase();
+      document.getElementById("octVal").innerText = dec.toString(8);
+      document.getElementById("b36Val").innerText = dec.toString(36).toUpperCase();
+    }
+
+    // Fullscreen helper for the embedded Canvas game.
+    function toggleGameFullscreen() {
+      const shell = document.getElementById("gameShell");
+      if (!document.fullscreenElement && shell.requestFullscreen) {
+        shell.requestFullscreen().catch(() => {});
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+
+    // Copy Email Helper
+    function copyEmail() {
+      const email = "vihaan@example.com";
+      navigator.clipboard.writeText(email).then(() => {
+        const btn = document.querySelector('.email-button');
+        const originalText = btn.innerText;
+        btn.innerText = "Email Copied!";
+        setTimeout(() => {
+          btn.innerText = originalText;
+        }, 2000);
+      });
+    }
+
+
+
+    /*
+     * KANTO OPENING — VANILLA JAVASCRIPT + HTML5 CANVAS
+     * Original procedural pixel art and gameplay logic; no external assets.
+     * World structure is cross-referenced against FireRed/LeafGreen maps and walkthroughs.
+     */
+    (() => {
+      'use strict';
+    
+      const STATE = Object.freeze({ TITLE: 'TITLE', OVERWORLD: 'OVERWORLD', DIALOGUE: 'DIALOGUE', MENU: 'MENU', BATTLE: 'BATTLE' });
+      const TILE = 16, VIEW_W = 240, VIEW_H = 160, RENDER_SCALE = 3;
+      const canvas = document.getElementById('gameCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: false });
+      // Draw the entire game at 3x backing resolution. Tile art remains crisp, while
+      // dialogue/menu type is rasterized with real antialiasing instead of block scaling.
+      ctx.imageSmoothingEnabled = true;
+      ctx.setTransform(RENDER_SCALE, 0, 0, RENDER_SCALE, 0, 0);
+      const snapCoord = value => Math.round(value * RENDER_SCALE) / RENDER_SCALE;
+    
+      const SIZE = {
+        upstairs: { w: 12, h: 9 }, downstairs: { w: 13, h: 10 }, lab: { w: 13, h: 14 },
+        town: { w: 24, h: 20 }, route: { w: 24, h: 40 }
+      };
+      const COLORS = {
+        ink: '#26384a', ink2: '#42576a', cream: '#fffdf2', paper: '#f6f4df',
+        grass: '#74b866', grass2: '#67aa5c', grass3: '#91cd74', grassDark: '#428b50',
+        path: '#e4d8a9', path2: '#d4c48d', tree: '#287048', tree2: '#3b9250', tree3: '#69b759',
+        wall: '#e8d9b7', roof: '#c65c55'
+      };
+    
+      const SPECIES = {
+        Bulbasaur: { name: 'Bulbasaur', type: 'GRASS', hp: 21, attack: 10, defense: 10, color: '#63a98b', moves: ['TACKLE', 'GROWL'], desc: 'A strange seed was planted on its back at birth.' },
+        Charmander: { name: 'Charmander', type: 'FIRE', hp: 19, attack: 11, defense: 9, color: '#ef8a42', moves: ['SCRATCH', 'GROWL'], desc: 'Obviously prefers hot places. Its tail flame burns brightly.' },
+        Squirtle: { name: 'Squirtle', type: 'WATER', hp: 22, attack: 10, defense: 11, color: '#6ebbd5', moves: ['TACKLE', 'TAIL WHIP'], desc: 'After birth, its back swells and hardens into a shell.' },
+        Pidgey: { name: 'Pidgey', type: 'NORMAL/FLYING', hp: 14, attack: 8, defense: 7, color: '#c5ad83', moves: ['TACKLE', 'SAND-ATTACK'] },
+        Rattata: { name: 'Rattata', type: 'NORMAL', hp: 15, attack: 9, defense: 7, color: '#ad7ab0', moves: ['TACKLE', 'TAIL WHIP'] }
+      };
+      // Keep the menu order aligned with the three physical Poké Balls, left to right.
+      const STARTERS = ['Bulbasaur', 'Squirtle', 'Charmander'];
+      const TABLE_STARTERS = ['Bulbasaur', 'Squirtle', 'Charmander'];
+      const WILD = ['Pidgey', 'Rattata'];
+      const STEP_DURATION = 0.145;
+      const MOVE_DATA = {
+        TACKLE: { power: 40, type: 'NORMAL' }, SCRATCH: { power: 40, type: 'NORMAL' },
+        GROWL: { power: 0, type: 'NORMAL' }, 'TAIL WHIP': { power: 0, type: 'NORMAL' },
+        'SAND-ATTACK': { power: 0, type: 'GROUND' }
+      };
+    
+      const held = new Set(), pressed = new Set();
+      const directionKeys = new Set(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','KeyW','KeyA','KeyS','KeyD']);
+      const actionKeys = ['KeyZ','Enter','Space']; // Nintendo-style A button
+      const backKeys = ['KeyX','Escape','Backspace']; // Nintendo-style B button
+      const allKeys = new Set([...directionKeys, ...actionKeys, ...backKeys]);
+      const directionFor = {
+        ArrowUp: [0,-1,'up'], KeyW: [0,-1,'up'], ArrowDown: [0,1,'down'], KeyS: [0,1,'down'],
+        ArrowLeft: [-1,0,'left'], KeyA: [-1,0,'left'], ArrowRight: [1,0,'right'], KeyD: [1,0,'right']
+      };
+    
+      let state = STATE.TITLE, scene = 'upstairs';
+      let player = { x: 7, y: 7, facing: 'down', move: null, walkClock: 0 };
+      let camera = { x: 0, y: 0 };
+      // Stair transitions are scripted, collision-checked movement sequences. While one
+      // is active, player input is ignored until Red lands on the destination carpet.
+      let stairTransit = null;
+      let stairInputLock = false;
+      let elapsed = 0, lastFrame = 0;
+      let dialog = null, dialogReturnState = STATE.OVERWORLD;
+      let menuKind = 'starter', menuIndex = 0, selectedStarter = 0;
+      let starter = null, party = null, blueStarter = null;
+      let pcPotionTaken = false, routeGiftTaken = false, potions = 0, oakIntroSeen = false, rivalBattleDone = false;
+      let battle = null;
+    
+      function gameVisible() {
+        const p = document.getElementById('page-projects'), t = document.getElementById('tab-pokemon');
+        return !!p && !!t && p.classList.contains('active') && t.classList.contains('active');
+      }
+      document.addEventListener('keydown', e => {
+        if (!gameVisible() || !allKeys.has(e.code)) return;
+        e.preventDefault();
+        if (!held.has(e.code)) pressed.add(e.code);
+        held.add(e.code);
+      });
+      document.addEventListener('keyup', e => held.delete(e.code));
+      window.addEventListener('blur', () => { held.clear(); pressed.clear(); });
+      function consumeAction() {
+        for (const key of actionKeys) if (pressed.has(key)) { pressed.delete(key); return true; }
+        return false;
+      }
+      function consumeBack() {
+        for (const key of backKeys) if (pressed.has(key)) { pressed.delete(key); return true; }
+        return false;
+      }
+      function consumeDirection() {
+        for (const key of pressed) if (directionFor[key]) return { key, dir: directionFor[key], fresh: true };
+        for (const key of held) if (directionFor[key]) return { key, dir: directionFor[key], fresh: false };
+        return null;
+      }
+      function inRect(x,y,rx,ry,rw,rh) { return x >= rx && x < rx+rw && y >= ry && y < ry+rh; }
+      const lerp = (a,b,t) => a + (b-a)*t;
+      const clamp = (v,min,max) => Math.max(min, Math.min(max,v));
+      const smooth = t => t*t*(3-2*t);
+      const easeOutCubic = t => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
+      const easeOutBack = t => { const c1 = 1.70158, c3 = c1 + 1; const u = clamp(t, 0, 1) - 1; return 1 + c3*u*u*u + c1*u*u; };
+      const feedback = {
+        hpPulse: { player: 0, foe: 0 },
+        levelToast: null,
+        transition: 0
+      };
+      const HP_PULSE_DURATION = 0.42;
+      function triggerHpFeedback(target) { feedback.hpPulse[target] = HP_PULSE_DURATION; }
+      function triggerLevelToast(level) { feedback.levelToast = { level, time: 0, duration: 1.65 }; }
+      function triggerTransition() { feedback.transition = 0.24; }
+    
+      function startDialogue(lines, onEnd = null) {
+        if (state !== STATE.DIALOGUE) dialogReturnState = state;
+        dialog = { lines: Array.isArray(lines) ? lines : [String(lines)], index: 0, shown: 0, timer: 0, onEnd };
+        state = STATE.DIALOGUE;
+      }
+      function advanceDialogue() {
+        if (!dialog) return;
+        const line = dialog.lines[dialog.index] || '';
+        if (dialog.shown < line.length) { dialog.shown = line.length; return; }
+        if (dialog.index < dialog.lines.length - 1) { dialog.index++; dialog.shown = 0; dialog.timer = 0; return; }
+        const fn = dialog.onEnd;
+        dialog = null;
+        state = dialogReturnState;
+        if (fn) fn();
+      }
+      function chooseCameraTarget() {
+        const p = interpolatedPlayer();
+        const dims = SIZE[scene];
+        if (dims.w * TILE <= VIEW_W && dims.h * TILE <= VIEW_H) return { x: 0, y: 0 };
+        const targetX = p.x * TILE + TILE/2 - VIEW_W/2;
+        const targetY = p.y * TILE + TILE - VIEW_H*0.60;
+        // Keep Oak and the starter table readable when entering the tall laboratory.
+        // The camera can travel 40 px down from the map origin, then follows Red smoothly.
+        const maxCameraY = Math.max(0, dims.h*TILE - VIEW_H);
+        return {
+          x: clamp(targetX, 0, Math.max(0, dims.w*TILE - VIEW_W)),
+          y: clamp(targetY, 0, maxCameraY)
+        };
+      }
+      function interpolatedPlayer() {
+        if (!player.move) return { x: player.x, y: player.y };
+        const t = smooth(clamp(player.move.elapsed / player.move.duration, 0, 1));
+        return { x: lerp(player.move.fromX, player.move.toX, t), y: lerp(player.move.fromY, player.move.toY, t) };
+      }
+      function setCameraInstant() { const t = chooseCameraTarget(); camera.x = t.x; camera.y = t.y; }
+      function changeScene(next, x, y, facing = 'down') {
+        const dims = SIZE[next];
+        // Refuse invalid transition destinations instead of ever placing Red outside a map.
+        if (!dims || x < 0 || x >= dims.w || y < 0 || y >= dims.h) {
+          console.warn('Blocked invalid scene destination:', next, x, y);
+          return false;
+        }
+        const changedScene = scene !== next;
+        scene = next;
+        player.x = x; player.y = y; player.facing = facing; player.move = null; player.walkClock = 0;
+        setCameraInstant();
+        if (changedScene) triggerTransition();
+        return true;
+      }
+      function beginStairTransit(path, destination) {
+        if (stairTransit || player.move || !Array.isArray(path) || path.length === 0) return;
+        stairTransit = {
+          path: path.map(point => ({ x: point.x, y: point.y })),
+          nextIndex: 0,
+          destination: { ...destination },
+          segmentDuration: 0.17
+        };
+        stairInputLock = true;
+        advanceStairTransit();
+      }
+      function advanceStairTransit() {
+        if (!stairTransit) return;
+        if (stairTransit.nextIndex >= stairTransit.path.length) {
+          const destination = stairTransit.destination;
+          stairTransit = null;
+          player.move = null;
+          // The destination is deliberately the landing carpet, not the stair graphic.
+          changeScene(destination.scene, destination.x, destination.y, destination.facing);
+          stairInputLock = true;
+          return;
+        }
+        const point = stairTransit.path[stairTransit.nextIndex++];
+        player.move = {
+          fromX: player.x, fromY: player.y, toX: point.x, toY: point.y,
+          elapsed: 0, duration: stairTransit.segmentDuration, arrival: 'stairSegment'
+        };
+      }
+      function startNewGame() {
+        triggerTransition();
+        state = STATE.OVERWORLD;
+        starter = null; party = null; blueStarter = null; potions = 0; pcPotionTaken = false;
+        oakIntroSeen = false; rivalBattleDone = false; routeGiftTaken = false; battle = null; dialog = null;
+        stairTransit = null; stairInputLock = false;
+        menuKind = 'starter'; menuIndex = 0; selectedStarter = 0;
+        // FireRed begins play in Red's bedroom after the opening narration.
+        changeScene('upstairs', 6, 6, 'down');
+      }
+    
+      function beginMenu(kind) { menuKind = kind; menuIndex = kind === 'starter' ? selectedStarter : 0; state = STATE.MENU; }
+      function finishStarterChoice() {
+        starter = STARTERS[selectedStarter];
+        const base = SPECIES[starter];
+        party = { ...base, level: 5, maxHp: base.hp, hp: base.hp, exp: 0, name: starter };
+        const counter = { Bulbasaur: 'Charmander', Charmander: 'Squirtle', Squirtle: 'Bulbasaur' };
+        blueStarter = counter[starter];
+        startDialogue([
+          `RED received ${starter}!`,
+          `${starter}: ${base.desc || 'A new adventure begins.'}`,
+          `BLUE took the ${blueStarter} Pokémon!`,
+          'BLUE: Let’s see what your Pokémon can do!'
+        ]);
+      }
+      function chooseMenu() {
+        if (menuKind === 'starter') { selectedStarter = menuIndex; menuKind = 'starterConfirm'; menuIndex = 0; return; }
+        if (menuKind === 'starterConfirm') {
+          if (menuIndex === 0) {
+            state = STATE.OVERWORLD;
+            finishStarterChoice();
+          } else { menuKind = 'starter'; menuIndex = selectedStarter; }
+        }
+      }
+      function handleMenuInput() {
+        if (consumeBack()) {
+          if (menuKind === 'starterConfirm') { menuKind = 'starter'; menuIndex = selectedStarter; }
+          else { state = STATE.OVERWORLD; menuKind = 'starter'; }
+          return;
+        }
+        const up = pressed.has('ArrowUp') || pressed.has('KeyW');
+        const down = pressed.has('ArrowDown') || pressed.has('KeyS');
+        const left = pressed.has('ArrowLeft') || pressed.has('KeyA');
+        const right = pressed.has('ArrowRight') || pressed.has('KeyD');
+        if (menuKind === 'starter') {
+          if (left || up) menuIndex = (menuIndex + STARTERS.length - 1) % STARTERS.length;
+          if (right || down) menuIndex = (menuIndex + 1) % STARTERS.length;
+        } else if (menuKind === 'starterConfirm' && (up || down || left || right)) menuIndex = menuIndex === 0 ? 1 : 0;
+        for (const k of directionKeys) pressed.delete(k);
+        if (consumeAction()) chooseMenu();
+      }
+    
+      function isTallGrass(x,y) {
+        if (scene !== 'route') return false;
+        // Route 1 grass patches laid out against the FRLG map: north-east, mid-east,
+        // and the two southern patches beside the gated path from Pallet Town.
+        return inRect(x,y,10,5,12,6) ||
+          inRect(x,y,16,13,6,5) ||
+          inRect(x,y,13,18,9,4) ||
+          inRect(x,y,2,32,10,5) ||
+          inRect(x,y,15,32,7,5);
+      }
+      function routePath(x,y) {
+        // The route curls west around the first ledges, then returns east and north.
+        return (y >= 30 && y < 40 && x >= 11 && x <= 14) ||
+          (y >= 27 && y <= 30 && x >= 2 && x <= 21) ||
+          (y >= 24 && y <= 28 && x >= 5 && x <= 21) ||
+          (y >= 20 && y <= 25 && x >= 5 && x <= 9) ||
+          (y >= 17 && y <= 21 && x >= 5 && x <= 16) ||
+          (y >= 14 && y <= 18 && x >= 13 && x <= 19) ||
+          (y >= 11 && y <= 15 && x >= 13 && x <= 20) ||
+          (y >= 6 && y <= 12 && x >= 8 && x <= 13) ||
+          (y >= 2 && y <= 7 && x >= 10 && x <= 21) ||
+          (y >= 0 && y <= 4 && x >= 10 && x <= 21);
+      }
+      function routeTreeAt(x,y) {
+        if (x <= 1 || x >= 22) return true;
+        // Tall, interior tree rows and landmark trees that shape the first route.
+        return inRect(x,y,9,3,1,9) || inRect(x,y,2,13,1,3) ||
+          inRect(x,y,9,20,1,3) || inRect(x,y,2,23,1,2) ||
+          inRect(x,y,3,30,5,2) || inRect(x,y,8,30,3,2) ||
+          inRect(x,y,3,36,7,3) || inRect(x,y,15,36,7,3);
+      }
+      function routeLedgeAt(x,y) {
+        // Tile row where the dark ledge lip is drawn; these cannot be walked north over.
+        return (y===5 && x>=2 && x<=8) || (y===11 && x>=2 && x<=8) ||
+          (y===14 && x>=4 && x<=9) || (y===22 && x>=2 && x<=8) ||
+          (y===28 && x>=18 && x<=21) || (y===34 && x>=18 && x<=21);
+      }
+      function townPath(x,y) {
+        return (y >= 6 && y <= 7 && x >= 2 && x <= 21) ||
+          (x >= 10 && x <= 12 && y >= 0 && y <= 16) ||
+          (x >= 10 && x <= 19 && y >= 14 && y <= 15) ||
+          (x >= 20 && x <= 21 && y >= 13 && y <= 16) ||
+          (x >= 4 && x <= 9 && y >= 8 && y <= 11);
+      }
+      function tileBlocked(x, y) {
+        const map = SIZE[scene];
+        // A single bounds gate protects every zone, including scripted door approaches.
+        if (!map || x < 0 || x >= map.w || y < 0 || y >= map.h) return true;
+
+        if (scene === 'upstairs') {
+          if (x === 0 || x === map.w - 1 || y === 0 || y === map.h - 1) return true;
+          // PC desk/shelf and bed footprints mirror the objects drawn in the room.
+          if (inRect(x, y, 2, 1, 4, 1) || inRect(x, y, 2, 2, 2, 1)) return true;
+          if (inRect(x, y, 8, 2, 3, 3)) return true;
+          // The staircase is not ordinary floor. Only its south-facing entrance can
+          // start the scripted stair sequence (handled in startStep before this check).
+          if (inRect(x, y, 9, 5, 2, 2)) return true;
+          return false;
+        }
+
+        if (scene === 'downstairs') {
+          if (x === 0 || x === map.w - 1 || y === 0 || (y === map.h - 1 && x !== 7)) return true;
+          if (inRect(x, y, 2, 2, 4, 1)) return true;           // kitchen counter
+          if (inRect(x, y, 9, 7, 2, 2)) return true;           // sofa / television
+          if (inRect(x, y, 2, 5, 1, 3)) return true;           // plant canopy and pot
+          if (x === 7 && y === 3) return true;                 // Mom
+          if (inRect(x, y, 10, 2, 2, 2)) return true;          // stairwell
+          return false;
+        }
+
+        if (scene === 'lab') {
+          if (x === 0 || x === map.w - 1 || y === 0 || (y === map.h - 1 && x !== 6)) return true;
+          if (inRect(x, y, 1, 1, 3, 3) || inRect(x, y, 9, 1, 3, 3)) return true; // cabinets/windows
+          if (inRect(x, y, 4, 3, 5, 1)) return true;           // research bench / Oak
+          if (inRect(x, y, 2, 5, 9, 1)) return true;           // starter table
+          if (x === 10 && y === 7) return true;                // Blue
+          if (inRect(x, y, 9, 9, 2, 1)) return true;           // equipment cart
+          return false;
+        }
+
+        if (scene === 'town') {
+          // The visible tree border occupies columns 0-1 and 22-23. Keep the pond,
+          // fence, flower bed, and building footprints solid instead of walk-through art.
+          if (x <= 1 || x >= 22 || y >= 18) return true;
+          if (y === 0 && !inRect(x, y, 10, 0, 5, 1)) return true;
+          if (inRect(x, y, 4, 3, 6, 4) || inRect(x, y, 14, 3, 6, 4) || inRect(x, y, 13, 9, 7, 5)) return true;
+          if (inRect(x, y, 4, 9, 5, 3)) return true;           // flower bed
+          if (inRect(x, y, 4, 15, 4, 2)) return true;          // pond
+          if (inRect(x, y, 4, 8, 6, 1)) return true;           // picket fence
+          // Oak occupies the center of the north gate before the starter sequence.
+          if (!starter && x === 12 && y === 1) return true;
+          return false;
+        }
+
+        if (scene === 'route') {
+          if (x <= 1 || x >= 22) return true;
+          if (routeTreeAt(x, y)) return true;
+          // Stop Red passing through signboards and the route employee.
+          if ((x === 9 && y === 29) || (x === 17 && y === 2)) return true;
+          // Directional ledge rules are applied in startStep, where the attempted
+          // direction is known; collision here remains a pure tile lookup.
+          if (y === 0 && !inRect(x, y, 10, 0, 5, 1)) return true;
+          if (y === map.h - 1 && !inRect(x, y, 10, map.h - 1, 5, 1)) return true;
+          return false;
+        }
+        return false;
+      }
+      function triggerOakStop() {
+        player.move = null;
+        startDialogue([
+          'PROFESSOR OAK: Hold it! Don’t go out!',
+          'It’s unsafe! Wild Pokémon live in tall grass. You need your own Pokémon first.'
+        ], () => {
+          changeScene('lab', 6, 11, 'up');
+          if (!oakIntroSeen) {
+            oakIntroSeen = true;
+            startDialogue([
+              'PROFESSOR OAK: Your grandson, BLUE, is here already.',
+              'BLUE: Gramps! I’m fed up with waiting!',
+              'PROFESSOR OAK: There are three Pokémon here. Choose one to accompany you.'
+            ]);
+          }
+        });
+      }
+      function enterLab() {
+        changeScene('lab', 6, 11, 'up');
+        if (!oakIntroSeen) {
+          oakIntroSeen = true;
+          startDialogue([
+            'PROFESSOR OAK: Welcome to my laboratory.',
+            'BLUE: Gramps! I’m ready to choose my Pokémon.',
+            'PROFESSOR OAK: There are three Pokémon on the table. Choose one.'
+          ]);
+        }
+      }
+      function startStep(dx, dy, facing) {
+        if (player.move || stairTransit || stairInputLock) return;
+        player.facing = facing;
+        const tx = player.x + dx, ty = player.y + dy;
+
+        // Route exits only at their center gate. In Pallet Town Oak stops Red at his
+        // actual tile or at the north boundary until a starter has been chosen.
+        if (scene === 'town' && dy < 0 && tx === 12 && ty === 1 && !starter) { triggerOakStop(); return; }
+        if (scene === 'town' && dy < 0 && ty < 0 && tx >= 10 && tx <= 14) {
+          if (!starter) { triggerOakStop(); return; }
+          changeScene('route', 12, 39, 'up'); return;
+        }
+        if (scene === 'route' && ty < 0 && tx >= 10 && tx <= 14) {
+          startDialogue(['ROUTE 1 continues north toward Viridian City.', 'This opening chapter ends here.']); return;
+        }
+        if (scene === 'route' && dy > 0 && ty >= SIZE.route.h && tx >= 10 && tx <= 14) {
+          changeScene('town', 12, 0, 'down'); return;
+        }
+
+        // Doorways are explicit transition tiles so they line up with the artwork.
+        // Step onto the house's visible doorway (row 6), not a tile below the house.
+        if (scene === 'town' && tx === 7 && ty === 6 && dy < 0) {
+          player.move = { fromX: player.x, fromY: player.y, toX: tx, toY: ty, elapsed: 0, duration: STEP_DURATION, arrival: 'home' }; return;
+        }
+        // The lab door reaches the building's ground line at row 14. Its interior
+        // door threshold is row 13, so approach it from the open path at row 14.
+        if (scene === 'town' && tx === 16 && ty === 13 && dy < 0) {
+          player.move = { fromX: player.x, fromY: player.y, toX: tx, toY: ty, elapsed: 0, duration: STEP_DURATION, arrival: 'lab' }; return;
+        }
+        if (scene === 'town' && tx === 17 && ty === 6 && dy < 0) {
+          startDialogue(['This is BLUE’s house.', 'His sister Daisy lives here.']); return;
+        }
+
+        // Stairs are entered by walking north from the carpet landing. Red walks two
+        // uninterrupted steps through the stair art, then lands on the opposite carpet.
+        if (scene === 'upstairs' && dy < 0 && player.y === 7 && [9, 10].includes(tx) && ty === 6) {
+          beginStairTransit([
+            { x: tx, y: 6 },
+            { x: tx, y: 5 }
+          ], { scene: 'downstairs', x: 10, y: 5, facing: 'up' });
+          return;
+        }
+        if (scene === 'downstairs' && dy < 0 && player.y === 4 && [10, 11].includes(tx) && ty === 3) {
+          beginStairTransit([
+            { x: tx, y: 3 },
+            { x: tx, y: 2 }
+          ], { scene: 'upstairs', x: 9, y: 7, facing: 'down' });
+          return;
+        }
+
+        if (scene === 'downstairs' && tx === 7 && ty === 9 && dy > 0) {
+          player.move = { fromX: player.x, fromY: player.y, toX: tx, toY: ty, elapsed: 0, duration: STEP_DURATION, arrival: 'outside' }; return;
+        }
+        if (scene === 'lab' && tx === 6 && ty === 13 && dy > 0) {
+          if (starter && !rivalBattleDone) { player.facing = 'down'; startRivalBattle(); return; }
+          player.move = { fromX: player.x, fromY: player.y, toX: tx, toY: ty, elapsed: 0, duration: STEP_DURATION, arrival: 'labExit' }; return;
+        }
+
+        if (scene === 'route' && routeLedgeAt(tx, ty)) {
+          // One-way ledges may be crossed only toward the south, never climbed or
+          // traversed sideways. (A southward tile step is the intended drop direction.)
+          if (dy < 0 || dx !== 0) return;
+        }
+        if (tileBlocked(tx, ty)) return;
+        player.move = { fromX: player.x, fromY: player.y, toX: tx, toY: ty, elapsed: 0, duration: STEP_DURATION, arrival: null };
+      }
+      function finishStep(m) {
+        player.x = m.toX; player.y = m.toY; player.move = null;
+        if (m.arrival === 'stairSegment') { advanceStairTransit(); return; }
+        if (m.arrival === 'home') { changeScene('downstairs', 7, 7, 'up'); return; }
+        if (m.arrival === 'lab') { enterLab(); return; }
+        if (m.arrival === 'outside') { changeScene('town', 7, 7, 'down'); return; }
+        if (m.arrival === 'labExit') { changeScene('town', 16, 14, 'down'); return; }
+        if (scene === 'route' && isTallGrass(player.x, player.y) && party && party.hp > 0 && Math.random() < 0.13) startWildBattle();
+      }
+      function interact() {
+        // Nintendo A only activates a real target directly in front of Red.
+        // Empty floor, grass, walls, and scenery deliberately do not produce filler dialogue.
+        if (player.move) return;
+        const [dx,dy] = ({ up:[0,-1], down:[0,1], left:[-1,0], right:[1,0] })[player.facing] || [0,1];
+        const tx = player.x + dx, ty = player.y + dy;
+
+        if (scene === 'upstairs') {
+          if (tx === 3 && ty === 2) {
+            if (!pcPotionTaken) {
+              startDialogue(["It's a PC.", 'A Potion is stored inside.', 'RED withdrew a Potion from the PC.'], () => { pcPotionTaken = true; potions += 1; });
+            } else startDialogue(["It's a PC.", 'The Potion was already withdrawn.']);
+          } else if (inRect(tx,ty,8,2,3,3)) {
+            startDialogue(["It's RED's bed.", 'It looks comfortable.']);
+          }
+          return;
+        }
+
+        if (scene === 'downstairs') {
+          if (tx === 7 && ty === 3) {
+            if (!party) startDialogue(['MOM: Right. All boys leave home someday!', 'MOM: It said so on TV. Take care on your journey.']);
+            else startDialogue(['MOM: You look tired, RED.', 'MOM: Let me heal your Pokémon.', 'Your Pokémon are fully healed!'], () => { if (party.hp < party.maxHp) triggerHpFeedback('player'); party.hp = party.maxHp; });
+          } else if (tx === 7 && ty === 9) {
+            changeScene('town',7,7,'down');
+          }
+          return;
+        }
+
+        if (scene === 'town') {
+          if (tx >= 10 && tx <= 14 && ty === 1) {
+            if (!starter) triggerOakStop();
+            else startDialogue(['PROFESSOR OAK: Your Pokémon is with you now.', 'Take good care of your new partner.']);
+          } else if (tx === 16 && ty === 13) {
+            enterLab();
+          } else if (tx === 17 && ty === 7) {
+            startDialogue(['This is BLUE’s house.', 'His sister Daisy lives here.']);
+          } else if (tx === 7 && ty === 6) {
+            changeScene('downstairs',7,7,'up');
+          }
+          return;
+        }
+
+        if (scene === 'lab') {
+          if (ty === 5 && [3,6,9].includes(tx)) {
+            if (starter) startDialogue([`You already chose ${starter}.`, 'Take good care of your partner.']);
+            else { selectedStarter = STARTERS.indexOf(TABLE_STARTERS[[3,6,9].indexOf(tx)]); beginMenu('starter'); }
+          } else if (tx === 6 && ty === 3) {
+            startDialogue(['PROFESSOR OAK: Pokémon are living creatures.', 'Treat your Pokémon with care.']);
+          } else if (tx === 10 && ty === 7) {
+            startDialogue(['BLUE: Don’t get in my way!']);
+          } else if (tx === 6 && ty === 13) {
+            if (starter && !rivalBattleDone) startRivalBattle();
+            else changeScene('town',16,14,'down');
+          }
+          return;
+        }
+
+        if (scene === 'route') {
+          if (tx === 17 && ty === 2) {
+            if (!routeGiftTaken) startDialogue(['POKé MART EMPLOYEE: Hi! I work at a Poké Mart.', 'Here, take this Potion as a free sample!', 'RED received a Potion!'], () => { routeGiftTaken = true; potions += 1; });
+            else startDialogue(['POKé MART EMPLOYEE: Hope that Potion helps on your journey!']);
+          } else if (tx === 9 && ty === 29) {
+            startDialogue(['ROUTE 1', 'A winding road between Pallet Town and Viridian City.']);
+          }
+          return;
+        }
+      }
+
+      function makePokemon(name, level = 5) {
+        const base = SPECIES[name];
+        const maxHp = base.hp + Math.max(0, level - 5) * 3;
+        return { ...base, name, level, maxHp, hp: maxHp, attack: base.attack + Math.max(0,level-5), defense: base.defense + Math.max(0,level-5) };
+      }
+      function queueBattleMessages(messages, after = null) {
+        if (!battle) return;
+        battle.mode = 'message'; battle.messages = messages; battle.messageIndex = 0; battle.shown = 0; battle.textTimer = 0; battle.afterMessages = after;
+      }
+      function startWildBattle() {
+        if (!party) return;
+        const name = WILD[Math.floor(Math.random()*WILD.length)];
+        const level = 2 + Math.floor(Math.random()*3);
+        const foe = makePokemon(name,level);
+        battle = { kind:'wild', foe, commandIndex:0, moveIndex:0, mode:'message', anim:null, flash:0,
+          displayFoeHp: foe.hp, displayPlayerHp: party.hp, foeHit: 0, playerHit: 0 };
+        state = STATE.BATTLE;
+        triggerTransition();
+        queueBattleMessages([`A wild ${name} appeared!`], () => { if (battle) battle.mode='command'; });
+      }
+      function startRivalBattle() {
+        if (!party || rivalBattleDone || battle) return;
+        const foe = makePokemon(blueStarter || 'Charmander',5);
+        battle = { kind:'trainer', trainer:'BLUE', foe, commandIndex:0, moveIndex:0, mode:'message', anim:null, flash:0,
+          displayFoeHp: foe.hp, displayPlayerHp: party.hp, foeHit: 0, playerHit: 0 };
+        state = STATE.BATTLE;
+        triggerTransition();
+        queueBattleMessages(['BLUE wants to battle!', `BLUE sent out ${blueStarter}!`], () => { if (battle) battle.mode='command'; });
+      }
+      function advanceBattleMessage() {
+        if (!battle || battle.mode !== 'message') return;
+        const current = battle.messages[battle.messageIndex] || '';
+        if (battle.shown < current.length) { battle.shown = current.length; return; }
+        if (battle.messageIndex < battle.messages.length - 1) { battle.messageIndex++; battle.shown = 0; battle.textTimer = 0; return; }
+        const after = battle.afterMessages; battle.afterMessages = null;
+        if (after) after(); else if (battle) battle.mode = 'command';
+      }
+      function damageValue(attacker, defender, moveName) {
+        const data = MOVE_DATA[moveName] || MOVE_DATA.TACKLE;
+        if (!data.power) return 0;
+        let damage = Math.floor((((2*attacker.level/5 + 2) * data.power * attacker.attack / Math.max(1,defender.defense))/50) + 2);
+        damage = Math.floor(damage * (0.85 + Math.random()*0.15));
+        if (attacker.type.split('/').includes(data.type)) damage = Math.floor(damage*1.15);
+        return Math.max(2, damage);
+      }
+      function enemyTurn(messages) {
+        if (!battle || battle.foe.hp <= 0) return messages;
+        const move = battle.foe.moves[0] || 'TACKLE';
+        const dmg = damageValue(battle.foe,party,move);
+        const previousHp = party.hp;
+        party.hp = Math.max(0,party.hp-dmg);
+        if (party.hp !== previousHp) triggerHpFeedback('player');
+        battle.anim = { target:'player', time:0.34, duration:0.34 };
+        messages.push(`Foe ${battle.foe.name} used ${move}!`);
+        messages.push(`${party.name} took ${dmg} damage!`);
+        if (party.hp <= 0) messages.push(`${party.name} fainted!`);
+        return messages;
+      }
+      function useMove(moveName) {
+        if (!battle || !party) return;
+        const foe = battle.foe;
+        let messages = [`RED used ${moveName}!`];
+        battle.anim = { target:'foe', time:0.34, duration:0.34 };
+        if (moveName === 'GROWL' || moveName === 'TAIL WHIP' || moveName === 'SAND-ATTACK') {
+          if (moveName === 'GROWL') { foe.attack = Math.max(3, Math.floor(foe.attack*0.78)); messages.push(`Foe ${foe.name}'s ATTACK fell!`); }
+          else if (moveName === 'TAIL WHIP') { foe.defense = Math.max(3, Math.floor(foe.defense*0.78)); messages.push(`Foe ${foe.name}'s DEFENSE fell!`); }
+          else { foe.attack = Math.max(3, Math.floor(foe.attack*0.85)); messages.push(`Foe ${foe.name}'s accuracy was lowered!`); }
+        } else {
+          const dmg = damageValue(party,foe,moveName);
+          const previousHp = foe.hp;
+          foe.hp = Math.max(0,foe.hp-dmg);
+          if (foe.hp !== previousHp) triggerHpFeedback('foe');
+          messages.push(`It dealt ${dmg} damage!`);
+          if (foe.hp <= 0) messages.push(`Foe ${foe.name} fainted!`);
+        }
+        if (foe.hp > 0) messages = enemyTurn(messages);
+        queueBattleMessages(messages, () => {
+          if (!battle) return;
+          if (battle.foe.hp <= 0) concludeBattle('win');
+          else if (party.hp <= 0) concludeBattle('loss');
+          else battle.mode = 'command';
+        });
+      }
+      function usePotion() {
+        if (!battle || !party) return;
+        if (potions <= 0) { queueBattleMessages(['There are no Potions in the Bag.'], () => { if (battle) battle.mode='command'; }); return; }
+        if (party.hp >= party.maxHp) { queueBattleMessages([`${party.name} already has full HP.`], () => { if (battle) battle.mode='command'; }); return; }
+        potions--;
+        const before = party.hp; party.hp = Math.min(party.maxHp,party.hp+20);
+        const recovered = party.hp-before;
+        if (recovered > 0) triggerHpFeedback('player');
+        queueBattleMessages(['RED used a Potion.', `${party.name} recovered ${recovered} HP!`], () => {
+          if (!battle) return;
+          const msgs=[]; enemyTurn(msgs);
+          if (msgs.length) queueBattleMessages(msgs, () => { if (!battle) return; if (party.hp<=0) concludeBattle('loss'); else battle.mode='command'; });
+          else battle.mode='command';
+        });
+      }
+      function handleBattleConfirm() {
+        if (!battle) return;
+        if (battle.mode === 'message') { advanceBattleMessage(); return; }
+        if (battle.mode === 'command') {
+          if (battle.commandIndex === 0) { battle.mode='moves'; battle.moveIndex=0; }
+          else if (battle.commandIndex === 1) usePotion();
+          else if (battle.commandIndex === 2) queueBattleMessages(['RED has only one Pokémon.'], () => { if (battle) battle.mode='command'; });
+          else if (battle.commandIndex === 3) {
+            if (battle.kind === 'trainer') queueBattleMessages(['You can’t run from a Trainer battle!'], () => { if (battle) battle.mode='command'; });
+            else queueBattleMessages(['Got away safely!'], () => concludeBattle('run'));
+          }
+          return;
+        }
+        if (battle.mode === 'moves') {
+          if (battle.moveIndex === 2) { battle.mode='command'; return; }
+          useMove(party.moves[battle.moveIndex] || party.moves[0]);
+        }
+      }
+      function handleBattleInput() {
+        if (!battle) return;
+        if (consumeBack()) {
+          if (battle.mode === 'moves') battle.mode = 'command';
+          return;
+        }
+        const up = pressed.has('ArrowUp') || pressed.has('KeyW'), down = pressed.has('ArrowDown') || pressed.has('KeyS');
+        const left = pressed.has('ArrowLeft') || pressed.has('KeyA'), right = pressed.has('ArrowRight') || pressed.has('KeyD');
+        if (battle.mode === 'command') {
+          if (up) battle.commandIndex = (battle.commandIndex+2)%4;
+          if (down) battle.commandIndex = (battle.commandIndex+2)%4;
+          if (left) battle.commandIndex = battle.commandIndex%2===0 ? battle.commandIndex+1 : battle.commandIndex-1;
+          if (right) battle.commandIndex = battle.commandIndex%2===0 ? battle.commandIndex+1 : battle.commandIndex-1;
+        } else if (battle.mode === 'moves') {
+          if (left || up) battle.moveIndex = (battle.moveIndex+2)%3;
+          if (right || down) battle.moveIndex = (battle.moveIndex+1)%3;
+        }
+        for (const k of directionKeys) pressed.delete(k);
+        if (consumeAction()) handleBattleConfirm();
+      }
+      function concludeBattle(outcome) {
+        if (!battle) return;
+        const old = battle;
+        battle = null; state = STATE.OVERWORLD;
+        if (old.kind === 'trainer') {
+          rivalBattleDone = true;
+          if (outcome === 'win') {
+            party.exp += 69;
+            party.level = 6; party.maxHp += 3; party.hp = Math.min(party.maxHp,party.hp+3);
+            triggerLevelToast(party.level);
+            triggerHpFeedback('player');
+          } else if (outcome === 'loss') party.hp = Math.max(1,Math.floor(party.maxHp*0.5));
+          changeScene('lab',6,11,'up');
+          startDialogue(outcome === 'win' ? [
+            'BLUE: What?! I picked the wrong Pokémon!',
+            'PROFESSOR OAK: Excellent work, RED.',
+            `${party.name} grew to level ${party.level}!`,
+            'The way out of the lab is clear.'
+          ] : [
+            'BLUE: Ha! Better luck next time!',
+            'PROFESSOR OAK: Don’t worry. Keep training with your Pokémon.',
+            'Your Pokémon has recovered enough to continue.'
+          ]);
+          return;
+        }
+        if (outcome === 'win' && old.foe) {
+          party.exp += old.foe.level*12;
+          startDialogue([`${old.foe.name} fainted.`, `${party.name} gained experience points!`]);
+        } else if (outcome === 'loss') {
+          party.hp = Math.max(1,Math.floor(party.maxHp*0.4));
+          startDialogue([`${party.name} needs a rest.`, 'Take a moment to visit Mom if you need healing.']);
+        }
+      }
+    
+      function update(dt) {
+        elapsed += dt;
+        feedback.hpPulse.player = Math.max(0, feedback.hpPulse.player - dt);
+        feedback.hpPulse.foe = Math.max(0, feedback.hpPulse.foe - dt);
+        feedback.transition = Math.max(0, feedback.transition - dt);
+        if (feedback.levelToast) {
+          feedback.levelToast.time += dt;
+          if (feedback.levelToast.time >= feedback.levelToast.duration) feedback.levelToast = null;
+        }
+        if (!gameVisible()) { pressed.clear(); return; }
+        if (state === STATE.TITLE) { if (consumeAction()) startNewGame(); return; }
+        if (state === STATE.DIALOGUE) {
+          if (dialog) {
+            dialog.timer += dt;
+            const line = dialog.lines[dialog.index] || '';
+            while (dialog.timer >= 0.028 && dialog.shown < line.length) { dialog.timer -= 0.028; dialog.shown++; }
+          }
+          if (consumeAction() || consumeBack()) advanceDialogue();
+          return;
+        }
+        if (state === STATE.MENU) { handleMenuInput(); return; }
+        if (state === STATE.BATTLE) {
+          if (battle) {
+            const hpEase = 1 - Math.exp(-13 * dt);
+            battle.displayFoeHp = lerp(battle.displayFoeHp ?? battle.foe.hp, battle.foe.hp, hpEase);
+            battle.displayPlayerHp = lerp(battle.displayPlayerHp ?? party.hp, party.hp, hpEase);
+            battle.foeHit = feedback.hpPulse.foe / HP_PULSE_DURATION;
+            battle.playerHit = feedback.hpPulse.player / HP_PULSE_DURATION;
+          }
+          if (battle?.anim) { battle.anim.time -= dt; if (battle.anim.time <= 0) battle.anim = null; }
+          if (battle?.mode === 'message') {
+            const line = battle.messages[battle.messageIndex] || '';
+            battle.textTimer += dt;
+            while (battle.textTimer >= 0.024 && battle.shown < line.length) { battle.textTimer -= 0.024; battle.shown++; }
+            if (consumeAction() || consumeBack()) advanceBattleMessage();
+          } else handleBattleInput();
+          return;
+        }
+        if (state === STATE.OVERWORLD) {
+          // During a stair sequence, all action and movement input is ignored. Red's
+          // scripted footsteps run to completion, even if the user keeps a key held.
+          if (stairTransit) {
+            if (player.move) {
+              player.move.elapsed += dt;
+              player.walkClock += dt;
+              if (player.move.elapsed >= player.move.duration) finishStep(player.move);
+            }
+            const target = chooseCameraTarget(), follow = 1 - Math.exp(-12 * dt);
+            camera.x = lerp(camera.x, target.x, follow);
+            camera.y = lerp(camera.y, target.y, follow);
+            return;
+          }
+          if (stairInputLock) {
+            // Require movement keys to be released once the landing animation finishes;
+            // this prevents a held stair-entry key from walking Red straight off the carpet.
+            for (const key of [...pressed]) if (directionKeys.has(key) || actionKeys.includes(key) || backKeys.includes(key)) pressed.delete(key);
+            if (![...held].some(key => directionKeys.has(key))) stairInputLock = false;
+            return;
+          }
+          if (consumeAction()) { interact(); return; }
+          if (player.move) {
+            player.move.elapsed += dt; player.walkClock += dt;
+            if (player.move.elapsed >= player.move.duration) finishStep(player.move);
+          } else {
+            const chosen = consumeDirection();
+            if (chosen) startStep(...chosen.dir);
+          }
+          const target = chooseCameraTarget(), follow = 1-Math.exp(-10*dt);
+          camera.x = lerp(camera.x,target.x,follow); camera.y = lerp(camera.y,target.y,follow);
+        }
+      }
+    
+      // ----- Original, tile-based rendering -----
+      function rect(x,y,w,h,color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(snapCoord(x), snapCoord(y), Math.max(0, Math.round(w * RENDER_SCALE) / RENDER_SCALE), Math.max(0, Math.round(h * RENDER_SCALE) / RENDER_SCALE));
+      }
+
+      // A restrained, tiled carpet runner with stitched edges; dimensions are in map tiles.
+      function drawCarpetRunner(tx,ty,tw,th,style='red') {
+        const x=tx*TILE, y=ty*TILE, w=tw*TILE, h=th*TILE;
+        const palette = style==='blue'
+          ? {edge:'#253c53',base:'#41677b',light:'#7296a0',gold:'#c6b477',dark:'#315367'}
+          : {edge:'#4c2536',base:'#853d50',light:'#ae5d66',gold:'#d6b36c',dark:'#653044'};
+        rect(x,y,w,h,palette.edge);
+        if(w>4&&h>4) rect(x+2,y+2,w-4,h-4,palette.base);
+        rect(x+3,y+3,w-6,1,palette.light);
+        rect(x+3,y+h-4,w-6,1,palette.dark);
+        rect(x+3,y+3,1,h-6,palette.gold);
+        rect(x+w-4,y+3,1,h-6,palette.gold);
+        for(let yy=y+7; yy<y+h-5; yy+=8) {
+          rect(x+5,yy,Math.max(1,w-10),1,palette.light);
+          for(let xx=x+7; xx<x+w-7; xx+=8) rect(xx,yy+2,2,2,palette.gold);
+        }
+      }
+
+      // A proper top-down staircase: dark side rails, evenly spaced treads, and a landing.
+      function drawStaircase(tx,ty,tw=2,th=2,direction='down') {
+        const x=tx*TILE, y=ty*TILE, w=tw*TILE, h=th*TILE;
+        rect(x+1,y+2,w-2,h-1,'#49372e');
+        rect(x+3,y+2,w-6,h-4,'#8e6a4d');
+        rect(x+3,y+3,2,h-6,'#c19a6b');
+        rect(x+w-5,y+3,2,h-6,'#604535');
+        const count=6, usable=h-8, step=usable/count;
+        for(let i=0;i<count;i++) {
+          const sy=y+3+Math.round(i*step);
+          const tint=(i%2===0)?'#b28a60':'#9c754f';
+          rect(x+5,sy,w-10,Math.max(2,Math.floor(step)-1),tint);
+          rect(x+5,sy,w-10,1,'#dfbb87');
+          rect(x+6,sy+2,w-12,1,'#806047');
+        }
+        const landingY=direction==='down'?y+h-5:y+2;
+        rect(x+4,landingY,w-8,3,'#d3b17c');
+        rect(x+4,landingY+1,w-8,1,'#f0d5a2');
+        // Tiny end-posts make the stair edges readable against the runner.
+        rect(x+1,y+1,3,3,'#5d4334'); rect(x+w-4,y+1,3,3,'#5d4334');
+        rect(x+1,y+h-4,3,3,'#5d4334'); rect(x+w-4,y+h-4,3,3,'#5d4334');
+      }
+
+      // Minimal foreground rails/sill restore depth: the treads stay behind Red,
+      // but the outside edges and lower lip sit in front of his feet while on the stairs.
+      function drawStaircaseForeground(tx, ty, tw = 2, th = 2) {
+        const x = tx * TILE, y = ty * TILE, w = tw * TILE, h = th * TILE;
+        rect(x + 1, y + 2, 2, h - 4, '#49372e');
+        rect(x + w - 3, y + 2, 2, h - 4, '#49372e');
+        rect(x + 2, y + h - 3, 3, 2, '#5d4334');
+        rect(x + w - 5, y + h - 3, 3, 2, '#5d4334');
+        rect(x + 4, y + h - 2, w - 8, 1, '#d3b17c');
+      }
+
+      // Small 3x5 bitmap lettering: intentionally simple GBA-style pixels, not aliased system fonts.
+      const PIXEL_GLYPHS = {
+        'A':['010','101','111','101','101'],'B':['110','101','110','101','110'],'C':['011','100','100','100','011'],
+        'D':['110','101','101','101','110'],'E':['111','100','110','100','111'],'F':['111','100','110','100','100'],
+        'G':['011','100','101','101','011'],'H':['101','101','111','101','101'],'I':['111','010','010','010','111'],
+        'J':['001','001','001','101','010'],'K':['101','101','110','101','101'],'L':['100','100','100','100','111'],
+        'M':['101','111','111','101','101'],'N':['101','111','111','111','101'],'O':['010','101','101','101','010'],
+        'P':['110','101','110','100','100'],'Q':['010','101','101','111','011'],'R':['110','101','110','101','101'],
+        'S':['011','100','010','001','110'],'T':['111','010','010','010','010'],'U':['101','101','101','101','111'],
+        'V':['101','101','101','101','010'],'W':['101','101','111','111','101'],'X':['101','101','010','101','101'],
+        'Y':['101','101','010','010','010'],'Z':['111','001','010','100','111'],
+        '0':['111','101','101','101','111'],'1':['010','110','010','010','111'],'2':['110','001','010','100','111'],
+        '3':['110','001','010','001','110'],'4':['101','101','111','001','001'],'5':['111','100','110','001','110'],
+        '6':['011','100','110','101','010'],'7':['111','001','010','010','010'],'8':['010','101','010','101','010'],
+        '9':['010','101','011','001','110'],
+        ' ':['000','000','000','000','000'],'.':['000','000','000','000','010'],',':['000','000','000','010','100'],
+        ':':['000','010','000','010','000'],';':['000','010','000','010','100'],'!':['010','010','010','000','010'],
+        '?':['110','001','010','000','010'],'-':['000','000','111','000','000'],'_':['000','000','000','000','111'],
+        "'":['010','010','000','000','000'],'"':['101','101','000','000','000'],'/':['001','001','010','100','100'],
+        '(':['001','010','010','010','001'],')':['100','010','010','010','100'],'+':['000','010','111','010','000'],
+        '=':['000','111','000','111','000'],'>':['100','010','001','010','100'],'<':['001','010','100','010','001'],
+        '%':['101','001','010','100','101'],'[':['110','100','100','100','110'],']':['011','001','001','001','011']
+      };
+      function drawPixelText(value,x,y,color='#26384a',scale=1,align='left') {
+        const text=String(value).toUpperCase().replace(/É/g,'E').replace(/[’‘]/g,"'").replace(/[—–]/g,'-').replace(/·/g,'.');
+        const advance=4*scale, width=Math.max(0,text.length*advance-scale);
+        if(align==='center') x-=width/2; else if(align==='right') x-=width;
+        for(let i=0;i<text.length;i++) {
+          const glyph=PIXEL_GLYPHS[text[i]] || PIXEL_GLYPHS['?'];
+          for(let row=0;row<5;row++) for(let col=0;col<3;col++) {
+            if(glyph[row][col]==='1') rect(x+i*advance+col*scale,y+row*scale,scale,scale,color);
+          }
+        }
+      }
+      function groundTile(wx,wy,sx,sy,kind) {
+        if (kind === 'path') {
+          rect(sx,sy,16,16,COLORS.path); rect(sx,sy,16,2,'#ede4be');
+          if ((wx+wy)%3===0) rect(sx+3,sy+5,3,2,COLORS.path2);
+          if ((wx*3+wy)%4===0) rect(sx+11,sy+11,2,2,'#c4b27b');
+          if ((wx+wy)%5===0) rect(sx+7,sy+2,1,3,'#f0e7c6');
+        } else if (kind === 'water') {
+          rect(sx,sy,16,16,'#66b6cc');
+          if ((wx+wy)%3===0) { rect(sx+2,sy+4,6,1,'#9be0df'); rect(sx+10,sy+11,4,1,'#448eae'); }
+          if ((wx*3+wy)%5===0) rect(sx+5,sy+8,4,1,'#87d0da');
+        } else if (kind === 'sand') {
+          rect(sx,sy,16,16,'#e6d5a4');
+          if ((wx+wy)%3===0) rect(sx+4,sy+5,2,1,'#cdbb86');
+          if ((wx*3+wy)%4===0) rect(sx+11,sy+12,2,1,'#f1e4b8');
+        } else if (kind === 'grassTall') {
+          rect(sx,sy,16,16,'#4b9f53');
+          rect(sx+1,sy+12,3,4,'#267547'); rect(sx+5,sy+8,3,7,'#337f48'); rect(sx+10,sy+10,4,6,'#267547');
+          rect(sx+3,sy+7,2,5,'#85ce65'); rect(sx+8,sy+4,2,6,'#6dc45d'); rect(sx+12,sy+7,2,5,'#9ad56e');
+          if ((wx+wy)%2===0) rect(sx+6,sy+13,2,2,'#b0df7b');
+        } else {
+          const base = (wx+wy)%2===0 ? COLORS.grass : COLORS.grass2;
+          rect(sx,sy,16,16,base);
+          if ((wx*7+wy)%3===0) rect(sx+3,sy+4,2,2,COLORS.grass3);
+          if ((wx+wy*2)%4===0) rect(sx+11,sy+10,2,2,'#4f9954');
+          if ((wx*3+wy)%7===0) { rect(sx+6,sy+13,1,2,'#a5d579'); }
+        }
+      }
+      function townTileType(x,y) {
+        if (y >= 18) return 'water';
+        if (townPath(x,y)) return 'path';
+        if ((x>=4&&x<=9&&y>=8&&y<=11) || (x>=20&&x<=21&&y>=14&&y<=16)) return 'sand';
+        return 'grass';
+      }
+      function routeTileType(x,y) {
+        if (isTallGrass(x,y)) return 'grassTall';
+        if (routePath(x,y)) return 'path';
+        return 'grass';
+      }
+      function drawTreeAt(px,py,seed=0) {
+        rect(px+5,py+9,7,7,'#805638');
+        rect(px+1,py+4,14,9,'#235b3b'); rect(px+3,py+1,10,11,'#2c7945');
+        rect(px+4,py+2,5,4,'#4da950'); rect(px+8,py+4,4,3,'#58b257');
+        rect(px+2,py+10,12,3,'#1d5539');
+        if (seed%2===0) rect(px+11,py+3,2,2,'#76c65d');
+      }
+      function drawFlower(px,py,color) {
+        rect(px+7,py+8,2,5,'#438a4c'); rect(px+4,py+5,3,3,color); rect(px+8,py+4,3,3,color);
+        rect(px+7,py+6,3,3,'#f5e6a8');
+      }
+      function drawHouse(tx,ty,tw,th,kind,camX=0,camY=0) {
+        const x=tx*TILE-camX, y=ty*TILE-camY, w=tw*TILE, h=th*TILE;
+        const roof = kind==='lab' ? ['#899b9b','#526d75','#bac9bd'] : kind==='rival' ? ['#4e8bb2','#315b84','#88b4c4'] : ['#d96559','#963e49','#e98770'];
+        rect(x+3,y+h-4,w,7,'rgba(20,38,32,.30)');
+        // Gable roof with defined tiles and shadow edges.
+        rect(x+1,y+7,w-2,25,roof[1]); rect(x+4,y+3,w-8,28,roof[0]); rect(x+8,y,w-16,7,roof[2]);
+        for (let xx=x+7; xx<x+w-7; xx+=13) {
+          rect(xx,y+7,7,2,roof[2]); rect(xx+3,y+12,2,12,roof[1]);
+        }
+        rect(x+6,y+27,w-12,h-27,COLORS.wall); rect(x+6,y+27,w-12,3,'#f5e9ce');
+        rect(x+8,y+h-4,w-16,4,'#796e5b');
+        // Front windows, divided like GBA town-house windows.
+        const wy=y+34;
+        rect(x+14,wy,12,10,'#436e82'); rect(x+16,wy+2,8,6,'#9ed4cf'); rect(x+19,wy+2,2,6,'#e8f1db'); rect(x+16,wy+5,8,2,'#e8f1db');
+        rect(x+w-26,wy,12,10,'#436e82'); rect(x+w-24,wy+2,8,6,'#9ed4cf'); rect(x+w-21,wy+2,2,6,'#e8f1db'); rect(x+w-24,wy+5,8,2,'#e8f1db');
+        const doorX=x+w/2-7;
+        if (kind==='lab') {
+          // Align the lab door's sill with the actual building/floor baseline.
+          const doorTop = y + h - 25;
+          rect(doorX-2,doorTop,18,25,'#e3e7d5');
+          rect(doorX,doorTop+2,14,23,'#4c6268');
+          rect(doorX+2,doorTop+4,10,13,'#7eaaac');
+          rect(doorX+4,doorTop+6,6,9,'#8fc1bd');
+          rect(doorX+10,doorTop+17,2,2,'#efd17d');
+          rect(doorX-1,y+h-3,16,3,'#d9d5ba');
+          rect(x+w/2-17,y+10,34,7,'#d8e8d9'); drawPixelText('LAB',x+w/2,y+11,'#24444b',1,'center');
+        } else {
+          rect(doorX,y+h-22,14,22,'#6c4a37'); rect(doorX+2,y+h-20,10,14,'#9b7251'); rect(doorX+10,y+h-12,2,2,'#efce78');
+        }
+        // Roof trim and gable ridge.
+        rect(x+5,y+4,w-10,2,roof[2]); rect(x+2,y+30,w-4,3,roof[1]);
+      }
+      function drawLocationLabel(text) {
+        rect(4,4,Math.min(94,text.length*4.4+10),13,'rgba(28,48,48,.84)');
+        rect(5,5,Math.min(92,text.length*4.4+8),11,'#f6f0d5');
+        drawPixelText(text,8,7,'#314b4e',1);
+      }
+      function drawTown(camX,camY) {
+        const x0=Math.max(0,Math.floor(camX/TILE)-1), y0=Math.max(0,Math.floor(camY/TILE)-1);
+        const x1=Math.min(SIZE.town.w,Math.ceil((camX+VIEW_W)/TILE)+1), y1=Math.min(SIZE.town.h,Math.ceil((camY+VIEW_H)/TILE)+1);
+        for(let y=y0;y<y1;y++) for(let x=x0;x<x1;x++) groundTile(x,y,x*TILE-camX,y*TILE-camY,townTileType(x,y));
+        // Dense tree border, a signature of Pallet Town's compact clearing.
+        for(let y=y0;y<Math.min(y1,18);y++) {
+          drawTreeAt(0*TILE-camX,y*TILE-camY,y);
+          drawTreeAt(1*TILE-camX,y*TILE-camY,y+4);
+          drawTreeAt(22*TILE-camX,y*TILE-camY,y+1);
+          drawTreeAt(23*TILE-camX,y*TILE-camY,y+3);
+        }
+        for(let x=x0;x<x1;x++) if(x<10||x>14) drawTreeAt(x*TILE-camX,0*TILE-camY,x);
+        // Flower bed and pale picket fence to the west of Oak's Laboratory.
+        for(let y=9;y<=11;y++) for(let x=4;x<=8;x++) drawFlower(x*TILE-camX,y*TILE-camY,((x+y)%2)?'#e56f82':'#f0c95e');
+        for(let x=4;x<=9;x++) {
+          const fy=8*TILE-camY;
+          rect(x*TILE-camX+1,fy+1,14,3,'#c4c7ac'); rect(x*TILE-camX+3,fy-2,3,8,'#f5edd1'); rect(x*TILE-camX+10,fy-2,3,8,'#f5edd1');
+        }
+        // Canonical relative placement: Red's home upper-left, Blue's upper-right, Oak's lab below.
+        drawHouse(4,3,6,4,'home',camX,camY);
+        drawHouse(14,3,6,4,'rival',camX,camY);
+        drawHouse(13,9,7,5,'lab',camX,camY);
+        // Small pond/shore detail on the south-west edge.
+        const pondX=4*TILE-camX, pondY=15*TILE-camY;
+        rect(pondX,pondY,4*TILE,2*TILE,'#579db0');
+        for(let yy=0;yy<2;yy++) for(let xx=0;xx<4;xx++) {
+          if((xx+yy)%2===0) rect(pondX+xx*TILE+3,pondY+yy*TILE+4,8,2,'#8acdd1');
+        }
+        // Walkable door thresholds sit directly outside the visible door tiles.
+        if (!starter) drawTrainer(12,1,'oak','down',false,elapsed,camX,camY);
+        drawLocationLabel('PALLET TOWN');
+      }
+          function drawIndoorBase(type) {
+        const width = SIZE[type].w;
+        const height = SIZE[type].h;
+        for(let y=0;y<height;y++) for(let x=0;x<width;x++) {
+          const px=x*TILE,py=y*TILE;
+          if (y===0 || x===0 || x===width-1 || (type==='lab'&&y===height-1) || (type==='upstairs'&&y===height-1)) {
+            rect(px,py,16,16,'#7c9c9b'); rect(px,py,16,4,'#b8c9b4'); rect(px+2,py+6,12,2,'#688883');
+          } else if (type==='lab') {
+            rect(px,py,16,16,(x+y)%2?'#dce2cf':'#e6e7d8');
+            rect(px+3,py+4,2,2,'#c0cfb8'); if ((x+y)%4===0) rect(px+10,py+10,2,2,'#c0cfb8');
+          } else {
+            rect(px,py,16,16,(y%2===0?'#c79e6c':'#c39a66'));
+            rect(px,py+14,16,2,'#aa8057'); if(x%2===0) rect(px+4,py+4,2,1,'#d8b580');
+          }
+        }
+      }
+      function drawUpstairs() {
+        drawIndoorBase('upstairs');
+        // Back-wall shelf, framed poster, and bed on the right side of Red's room.
+        rect(2*16,1*16,4*16,8,'#6f4934'); rect(2*16+4,1*16+2,24,4,'#e8d8a0');
+        rect(8*16,2*16,3*16,2*16,'#644630'); rect(8*16+2,2*16+2,44,27,'#49342e');
+        rect(8*16+4,2*16+4,40,12,'#e3e7d9'); rect(8*16+4,2*16+17,40,10,'#82acb7');
+        rect(8*16+5,2*16+22,38,3,'#c2d8df');
+        // PC desk in the upper-left corner. This object blocks movement but can be examined.
+        rect(2*16,2*16+7,2*16,10,'#785137'); rect(2*16+2,2*16+4,28,4,'#b17b4f');
+        rect(3*16+2,2*16-3,12,12,'#454f51'); rect(3*16+4,2*16-1,8,6,'#a4d2c9');
+        rect(3*16+5,2*16+7,6,2,'#303b43'); rect(3*16+1,2*16+11,14,2,'#ebd6ac');
+        drawPixelText('PC',3*16+3,2*16+16,'#f6e7bc',1);
+        // Deep red runner leads directly to a broad, clearly outlined stairwell.
+        drawCarpetRunner(8,5,3,3,'red');
+        drawStaircase(9,5,2,2,'down');
+      }
+      function drawDownstairs() {
+        drawIndoorBase('downstairs');
+        rect(2*16,2*16,4*16,15,'#78553b'); rect(2*16,2*16,4*16,4,'#d6b47b');
+        rect(3*16,2*16+5,13,8,'#a9c0b6'); rect(4*16+5,2*16+5,13,8,'#a9c0b6');
+        rect(9*16,7*16,2*16,2*16,'#416b76'); rect(9*16+2,7*16+3,28,12,'#79a6a4');
+        rect(2*16,6*16,14,18,'#806043'); rect(2*16+2,6*16-5,10,7,'#438d4d'); rect(2*16+4,6*16-10,6,7,'#71ba60');
+        // Two-tile staircase with a carpeted landing; the clear floor below is walkable.
+        drawCarpetRunner(9,3,3,3,'red');
+        drawStaircase(10,2,2,2,'up');
+        // South-facing door with a centered entry mat leading to the threshold.
+        drawCarpetRunner(6,7,3,2,'red');
+        rect(7*16+1,8*16+1,14,15,'#66452f'); rect(7*16+3,8*16+3,10,10,'#976d4d'); rect(7*16+11,8*16+8,2,2,'#f0cd77');
+        drawTrainer(7,3,'mom','down',false,elapsed,0,0);
+      }
+      function drawLab() {
+        drawIndoorBase('lab');
+        // FireRed-style research room: tall 13 x 14 footprint, equipment at the back,
+        // starter table across the upper-middle, and the exit centered on the south wall.
+        const px = n => n*TILE;
+        // Muted blue runner connects the lab door to the starter table without blocking movement.
+        drawCarpetRunner(5,6,3,7,'blue');
+        drawCarpetRunner(5,12,3,2,'blue');
+        // Back-wall windows and cabinets.
+        rect(px(1),px(1),px(3),px(3),'#476a79');
+        rect(px(1)+3,px(1)+4,px(3)-6,px(3)-8,'#9ccbc7');
+        for(let i=0;i<3;i++) { rect(px(1)+5+i*13,px(1)+6,7,px(2)-12,'#d8e7dc'); rect(px(1)+5+i*13,px(1)+18,7,2,'#6f9c9e'); }
+        rect(px(9),px(1),px(3),px(3),'#476a79');
+        rect(px(9)+3,px(1)+4,px(3)-6,px(3)-8,'#9ccbc7');
+        for(let i=0;i<3;i++) { rect(px(9)+5+i*13,px(1)+6,7,px(2)-12,'#d8e7dc'); rect(px(9)+5+i*13,px(1)+18,7,2,'#6f9c9e'); }
+        // Research bench behind Oak.
+        rect(px(4),px(3)+5,px(5),9,'#8b7352'); rect(px(4),px(3)+3,px(5),3,'#d8bd8a');
+        rect(px(4)+4,px(3)+8,20,5,'#b9c8be'); rect(px(7)+4,px(3)+8,22,5,'#b9c8be');
+        // Central starter table. Physical order follows the GBA room: Bulbasaur, Squirtle, Charmander.
+        rect(px(2),px(5),px(9),18,'#725239');
+        rect(px(2),px(5),px(9),4,'#d7b782');
+        rect(px(2),px(5)+4,px(9),2,'#a57d55');
+        TABLE_STARTERS.forEach((name,i)=>{
+          const cx=px([3,6,9][i])+8, cy=px(5)-3;
+          rect(cx-9,cy-7,18,11,'#efeedd'); rect(cx-7,cy-5,14,7,'#d6d8c9');
+          drawPokeball(cx,cy,0.76);
+          // Tiny colored accent below each ball helps read the three choices at normal scale.
+          rect(cx-3,px(5)+1,6,2,({Bulbasaur:'#69aa76',Squirtle:'#6ebbd5',Charmander:'#ed8847'})[name]);
+        });
+        // A small instrument cart gives the lab more visual depth without blocking the route.
+        rect(px(9),px(9),px(2),11,'#657d82'); rect(px(9)+3,px(9)+3,px(2)-6,4,'#9eb7b2');
+        rect(px(9)+5,px(9)+8,px(2)-10,2,'#c6d7cd');
+        // South-facing exit door centered on the south wall.
+        rect(px(6)+1,px(12)+1,14,15,'#624832');
+        rect(px(6)+3,px(12)+3,10,10,'#967252');
+        rect(px(6)+10,px(12)+8,2,2,'#efd17d');
+        drawTrainer(6,3,'oak','down',false,elapsed,0,0);
+        if (!rivalBattleDone) drawTrainer(10,7,'blue','left',false,elapsed,0,0);
+      }
+      function drawLedge(x,y,w,camX,camY) {
+        const px=x*TILE-camX, py=y*TILE-camY;
+        rect(px,py+2,w*TILE,4,'#805a54'); rect(px,py+2,w*TILE,1,'#b98379');
+        for(let i=0;i<w;i+=2) rect(px+i*TILE+3,py+7,8,2,'#9a6b60');
+      }
+      function drawRoute(camX,camY) {
+        const x0=Math.max(0,Math.floor(camX/TILE)-1),y0=Math.max(0,Math.floor(camY/TILE)-1);
+        const x1=Math.min(SIZE.route.w,Math.ceil((camX+VIEW_W)/TILE)+1),y1=Math.min(SIZE.route.h,Math.ceil((camY+VIEW_H)/TILE)+1);
+        for(let y=y0;y<y1;y++) for(let x=x0;x<x1;x++) groundTile(x,y,x*TILE-camX,y*TILE-camY,routeTileType(x,y));
+        for(let y=y0;y<y1;y++) {
+          drawTreeAt(0*TILE-camX,y*TILE-camY,y+2); drawTreeAt(1*TILE-camX,y*TILE-camY,y+4);
+          drawTreeAt(22*TILE-camX,y*TILE-camY,y+3); drawTreeAt(23*TILE-camX,y*TILE-camY,y+1);
+        }
+        const innerTrees=[[9,3,1,9],[2,13,1,3],[9,20,1,3],[2,23,1,2],[3,30,5,2],[8,30,3,2],[3,36,7,3],[15,36,7,3]];
+        for(const [x,y,w,h] of innerTrees) for(let yy=y;yy<y+h;yy++) for(let xx=x;xx<x+w;xx++) {
+          if(xx>=x0-1&&xx<x1&&yy>=y0-1&&yy<y1) drawTreeAt(xx*TILE-camX,yy*TILE-camY,(xx+yy)%5);
+        }
+        const ledges=[[2,5,7],[2,11,7],[4,14,6],[2,22,7],[18,28,4],[18,34,4]];
+        for(const [x,y,w] of ledges) if(y>=y0-1&&y<y1) drawLedge(x,y,w,camX,camY);
+        // Sign near the lower bend and the Poké Mart employee in the northern clearing.
+        const sx=9*TILE-camX, sy=29*TILE-camY;
+        rect(sx+6,sy+5,4,10,'#725035'); rect(sx+1,sy+1,14,8,'#d8bd81'); rect(sx+3,sy+3,10,4,'#f2e2ae');
+        drawPixelText('R1',sx+5,sy+2,'#405f47',1);
+        drawTrainer(17,2,'mart','down',false,elapsed,camX,camY);
+        drawLocationLabel('ROUTE 1');
+      }
+          function drawPokeball(cx,cy,scale=1) {
+        const w=Math.max(3,Math.round(14*scale)),h=Math.max(3,Math.round(14*scale));
+        rect(cx-w/2,cy-h/2,w,h,'#f7f4e5'); rect(cx-w/2,cy-h/2,w,h/2,'#d84e4e');
+        rect(cx-w/2,cy-1,w,2,'#34434d'); rect(cx-1,cy-1,3,3,'#f7f4e5'); rect(cx,cy,1,1,'#34434d');
+      }
+    
+      // Red gets a compact 12x20-ish hand-drawn sprite inspired by the supplied sketch:
+      // large red cap, white/navy band, dark side hair, white shirt, red jacket and blue straps.
+      // The four silhouettes share a common center and foot anchor, so facing never changes his position.
+      function drawRedTrainer(cx, foot, facing, walking, clock) {
+        const phases = [0, 1, 0, -1];
+        const phase = walking ? Math.floor(clock * 14) % 4 : 0;
+        const bob = walking ? [0, 0, -1, 0][phase] : 0;
+        const leftStep = walking ? phases[phase] : 0;
+        const rightStep = walking ? -phases[phase] : 0;
+        const armStep = walking ? -phases[phase] : 0;
+        const top = foot - 20 + bob;
+        const C = { outline:'#292631', hair:'#282832', skin:'#edb88f', skinShade:'#c98770',
+          cap:'#d9433e', capLight:'#ff6651', capShade:'#a83239', band:'#f5f0df', navy:'#283a60',
+          red:'#ce3e45', redLight:'#ed5150', white:'#f2eee0', blue:'#416ba0', blueLight:'#6db6d1',
+          pants:'#27344f', shoe:'#171c2a' };
+        // Soft grounding shadow (intentional antialiasing looks good at the higher backing resolution).
+        ctx.fillStyle='rgba(20,33,29,.33)'; ctx.beginPath(); ctx.ellipse(cx,foot-1,5.2,1.6,0,0,Math.PI*2); ctx.fill();
+        // Legs and shoes: four-frame alternating steps instead of a two-frame sideways shuffle.
+        rect(cx-4+leftStep,top+17,3,2,C.pants); rect(cx+1+rightStep,top+17,3,2,C.pants);
+        rect(cx-4+leftStep,top+19,4,1,C.shoe); rect(cx+1+rightStep,top+19,4,1,C.shoe);
+        rect(cx-3+leftStep,top+16,2,1,C.blueLight); rect(cx+1+rightStep,top+16,2,1,C.blueLight);
+        // Jacket and arms. Arm movement alternates subtly with the legs.
+        rect(cx-5,top+11,10,6,C.outline);
+        rect(cx-4,top+12,8,4,C.red); rect(cx-4,top+12,2,3,C.redLight); rect(cx+2,top+12,2,3,C.redLight);
+        rect(cx-2,top+12,4,4,C.white);
+        rect(cx-3,top+11,2,5,C.blue); rect(cx+2,top+11,2,5,C.blue);
+        rect(cx-6,top+12+armStep,2,4,C.red); rect(cx+4,top+12-armStep,2,4,C.red);
+        rect(cx-6,top+15+armStep,2,2,C.skin); rect(cx+4,top+15-armStep,2,2,C.skin);
+        // Side/backpack panels remain on the back when turning sideways.
+        if (facing==='up') {
+          rect(cx-5,top+11,10,6,C.outline); rect(cx-4,top+12,8,4,C.blue);
+          rect(cx-3,top+12,6,3,'#b57a42'); rect(cx-2,top+13,4,2,'#e5b65b');
+        } else if (facing==='left') { rect(cx+3,top+11,3,5,'#b57a42'); rect(cx+3,top+12,2,3,'#e5b65b'); }
+        else if (facing==='right') { rect(cx-6,top+11,3,5,'#b57a42'); rect(cx-5,top+12,2,3,'#e5b65b'); }
+        // Head and dark side-hair silhouette.
+        rect(cx-5,top+4,10,8,C.hair); rect(cx-6,top+6,2,5,C.hair); rect(cx+4,top+6,2,5,C.hair);
+        if (facing==='down') {
+          rect(cx-4,top+6,8,6,C.skin); rect(cx-6,top+8,2,2,C.skinShade); rect(cx+4,top+8,2,2,C.skinShade);
+          rect(cx-3,top+8,2,2,C.outline); rect(cx+2,top+8,2,2,C.outline);
+          rect(cx-1,top+10,2,1,C.skinShade);
+        } else if (facing==='up') {
+          rect(cx-4,top+5,8,6,C.hair); rect(cx-4,top+7,8,3,'#393541');
+        } else if (facing==='left') {
+          rect(cx-5,top+6,7,6,C.skin); rect(cx-6,top+8,2,2,C.skinShade);
+          rect(cx-5,top+8,2,2,C.outline); rect(cx+1,top+6,3,5,C.hair);
+        } else {
+          rect(cx-2,top+6,7,6,C.skin); rect(cx+4,top+8,2,2,C.skinShade);
+          rect(cx+2,top+8,2,2,C.outline); rect(cx-4,top+6,3,5,C.hair);
+        }
+        // The cap is deliberately broad and bright, with the white band and dark-blue line from the reference.
+        rect(cx-5,top,10,5,C.capShade); rect(cx-4,top,8,4,C.cap); rect(cx-3,top+1,6,2,C.capLight);
+        rect(cx-6,top+3,2,2,C.cap); rect(cx+4,top+3,2,2,C.cap);
+        if (facing==='down') {
+          rect(cx-6,top+4,12,2,C.band); rect(cx-6,top+6,12,1,C.navy);
+          rect(cx-1,top+4,2,2,'#d8e7f1');
+        } else if (facing==='up') {
+          rect(cx-5,top+4,10,2,'#a9323c'); rect(cx-4,top+5,8,1,C.navy);
+        } else if (facing==='left') {
+          rect(cx-6,top+4,8,2,C.band); rect(cx-6,top+6,7,1,C.navy);
+          rect(cx-6,top+2,3,2,C.capLight);
+        } else {
+          rect(cx-2,top+4,8,2,C.band); rect(cx-1,top+6,7,1,C.navy);
+          rect(cx+3,top+2,3,2,C.capLight);
+        }
+      }
+
+      // A single four-direction sprite routine keeps all human sprites facing consistently.
+      function drawTrainer(tileX,tileY,kind,facing,walking,clock,camX=0,camY=0,subX=null,subY=null) {
+        const wx = subX == null ? tileX*TILE+8 : subX*TILE+8;
+        const wy = subY == null ? tileY*TILE+TILE : subY*TILE+TILE;
+        const cx = snapCoord(wx-camX), foot = snapCoord(wy-camY);
+        if (kind === 'red') { drawRedTrainer(cx, foot, facing, walking, clock); return; }
+        const phase = walking ? (Math.floor(clock*14)%4) : 0;
+        const bob = walking ? [0,-1,0,1][phase] : 0;
+        const top=foot-22+bob;
+        let p;
+        if (kind==='red') p={hair:'#4a3430',skin:'#f0c49a',shirt:'#d84b49',shirt2:'#f0eee0',pants:'#344c83',shoe:'#3d3542',hat:'#d94842',accent:'#f4e8d1'};
+        else if (kind==='blue') p={hair:'#684b37',skin:'#f0c59f',shirt:'#387c70',shirt2:'#dfe9d9',pants:'#3f5578',shoe:'#3b3440',hat:'#3f776a',accent:'#b6d5a3'};
+        else if (kind==='oak') p={hair:'#d0d3c7',skin:'#edc39a',shirt:'#f4f2e8',shirt2:'#62899a',pants:'#5b6f7b',shoe:'#49444a',hat:'#d0d3c7',accent:'#c0d2d3'};
+        else if (kind==='mom') p={hair:'#71492f',skin:'#f0c49b',shirt:'#bd6c98',shirt2:'#f0c9d7',pants:'#5d6a92',shoe:'#51404c',hat:'#71492f',accent:'#f5d5df'};
+        else if (kind==='mart') p={hair:'#5b4532',skin:'#edc39a',shirt:'#e8eee2',shirt2:'#d9eee2',pants:'#43886b',shoe:'#51424a',hat:'#43886b',accent:'#f3dca1'};
+        else p={hair:'#d9c67d',skin:'#efc29a',shirt:'#9fbd74',shirt2:'#e8eed5',pants:'#66845e',shoe:'#51424a',hat:'#d9c67d',accent:'#f3dca1'};
+        // Ground shadow & step cycle.
+        ctx.fillStyle='rgba(26,48,39,.35)'; ctx.beginPath(); ctx.ellipse(cx,foot-1,6,2,0,0,Math.PI*2); ctx.fill();
+        const leftLeg = [0,2,0,-2][phase], rightLeg = [0,-2,0,2][phase];
+        rect(cx-4+leftLeg/2,top+15,4,5,p.pants); rect(cx+1+rightLeg/2,top+15,4,5,p.pants);
+        rect(cx-5+leftLeg/2,top+19,5,3,p.shoe); rect(cx+1+rightLeg/2,top+19,5,3,p.shoe);
+        // Backpack is visible from behind; side profile moves the bag to the back edge.
+        if (kind==='red' && facing==='up') { rect(cx-7,top+10,4,8,'#b8843f'); rect(cx-6,top+11,2,5,'#e4ba61'); }
+        else if (kind==='red' && (facing==='left'||facing==='right')) { rect(cx+(facing==='left'?3:-7),top+11,4,6,'#b8843f'); }
+        // Body, sleeves and neck.
+        rect(cx-5,top+9,10,7,p.shirt); rect(cx-7,top+10,3,5,p.shirt2); rect(cx+4,top+10,3,5,p.shirt2);
+        rect(cx-2,top+9,4,2,p.accent); rect(cx-4,top+14,8,2,kind==='oak'?'#e6e8df':p.shirt2);
+        // Head silhouette.
+        rect(cx-4,top+3,8,7,p.skin); rect(cx-5,top+4,2,4,p.skin); rect(cx+3,top+4,2,4,p.skin);
+        // Hair frame and direction-specific eyes. North-facing sprites never show their face.
+        rect(cx-5,top+1,10,4,p.hair); rect(cx-5,top+3,2,4,p.hair); rect(cx+3,top+3,2,4,p.hair);
+        if (facing==='down') {
+          rect(cx-3,top+6,2,2,'#37404a'); rect(cx+2,top+6,2,2,'#37404a');
+          rect(cx-1,top+8,2,1,'#bd7c67');
+        } else if (facing==='left') {
+          rect(cx-4,top+6,2,2,'#37404a'); rect(cx-6,top+7,2,2,p.skin);
+        } else if (facing==='right') {
+          rect(cx+2,top+6,2,2,'#37404a'); rect(cx+4,top+7,2,2,p.skin);
+        } else {
+          rect(cx-4,top+5,8,3,p.hair);
+        }
+        // Character-specific hats, hair, coat and backpack accents.
+        if (kind==='red') {
+          if (facing==='up') {
+            rect(cx-6,top+1,12,3,'#e6e5d7'); rect(cx-6,top,12,3,p.hat); rect(cx-4,top+2,8,2,'#efede4');
+          } else if (facing==='left') {
+            rect(cx-7,top+1,10,3,p.hat); rect(cx-7,top+3,8,2,'#f0eee6'); rect(cx-4,top,6,2,p.hat);
+          } else if (facing==='right') {
+            rect(cx-1,top+1,10,3,p.hat); rect(cx-1,top+3,8,2,'#f0eee6'); rect(cx-2,top,6,2,p.hat);
+          } else {
+            rect(cx-6,top,12,3,p.hat); rect(cx-5,top+2,10,3,'#f0eee6'); rect(cx-2,top+1,5,2,'#e7e8de');
+          }
+        } else if (kind==='blue') {
+          if (facing==='up') rect(cx-5,top,10,3,'#3f776a');
+          else { rect(cx-5,top,10,3,p.hair); rect(cx-5,top+1,3,3,p.hair); rect(cx+2,top+1,3,3,p.hair); }
+        } else if (kind==='oak') {
+          rect(cx-5,top,10,3,p.hair); rect(cx-6,top+3,3,4,p.hair); rect(cx+4,top+3,3,4,p.hair);
+          if (facing==='down'||facing==='left'||facing==='right') { rect(cx-2,top+8,5,1,'#8b908e'); }
+          rect(cx-6,top+10,3,7,'#f7f5ea'); rect(cx+4,top+10,3,7,'#f7f5ea');
+        } else if (kind==='mom') {
+          rect(cx-5,top,10,4,p.hair); rect(cx-6,top+3,3,7,p.hair); rect(cx+4,top+3,3,7,p.hair);
+        } else {
+          rect(cx-5,top,10,3,'#d9c77a'); rect(cx-4,top+1,8,2,'#f5e8ad');
+        }
+        if (kind==='red' && facing==='up') { rect(cx-4,top+10,8,7,'#b8843f'); rect(cx-2,top+11,4,4,'#e5bb5f'); }
+      }
+    
+      // Original pixel silhouettes of named Pokémon; deliberately hand-drawn, not extracted sprites.
+      function drawCreature(name,cx,cy,size=44,face='front',animation=elapsed) {
+        const scale=size/24; ctx.save(); ctx.translate(Math.round(cx-size/2),Math.round(cy-size/2+Math.sin(animation*3)*0.6)); ctx.scale(scale,scale);
+        const r=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(x,y,w,h);};
+        // Pokémon in the player's party use their own rear-facing battle silhouette.
+        if (face==='back') {
+          if (name==='Bulbasaur') {
+            r(3,11,18,8,'#397f8c'); r(5,7,13,9,'#559d9b');
+            r(6,4,5,6,'#317b49'); r(10,2,8,8,'#286b3e'); r(14,4,6,5,'#347f42');
+            r(5,18,5,4,'#2b6874'); r(15,18,5,4,'#2b6874'); r(3,20,6,2,'#214f59'); r(14,20,6,2,'#214f59');
+          } else if (name==='Charmander') {
+            r(7,10,11,9,'#da6b2f'); r(8,5,9,8,'#e98237'); r(6,8,4,9,'#d6652e');
+            r(7,17,4,5,'#b9542d'); r(15,17,4,5,'#b9542d');
+            r(17,11,5,3,'#df7131'); r(20,7,3,5,'#dd5034');
+            r(21,3,3,6,Math.sin(animation*8)>0?'#ffd34e':'#ff9f36'); r(22,4,2,3,'#fff09b');
+          } else if (name==='Squirtle') {
+            r(5,10,14,9,'#68b8d2'); r(6,5,12,8,'#7acbdf');
+            r(7,7,10,10,'#885e43'); r(9,8,7,8,'#b4895c'); r(10,10,5,5,'#d3ad74');
+            r(5,17,5,5,'#559db9'); r(15,17,5,5,'#559db9'); r(3,20,6,2,'#3f809d'); r(15,20,6,2,'#3f809d');
+          } else {
+            r(3,8,18,12,'#a66d91'); r(6,4,13,10,'#bd80a0'); r(7,17,5,4,'#835578'); r(15,17,5,4,'#835578');
+          }
+          ctx.restore(); return;
+        }
+        if (name==='Bulbasaur') {
+          r(3,12,17,7,'#428e9b');r(5,9,12,8,'#66b3b0');r(4,7,8,7,'#76c0b8');r(2,6,4,4,'#4b8e9b');r(11,6,4,4,'#4b8e9b');
+          r(12,4,7,7,'#347d49');r(13,2,6,5,'#4a9b52');r(16,1,4,5,'#62b95b');r(5,10,2,2,'#a52f47');r(9,10,2,2,'#a52f47');r(6,12,2,1,'#e9e5be');
+          r(5,18,4,4,'#377c82');r(15,18,4,4,'#377c82');r(3,20,5,2,'#285c64');r(14,20,5,2,'#285c64');
+        } else if (name==='Charmander') {
+          r(7,10,10,8,'#e77a32');r(9,5,8,8,'#f29a45');r(6,7,4,5,'#e77a32');r(6,13,4,6,'#df702f');r(14,15,4,5,'#df702f');
+          r(5,18,5,3,'#b9542d');r(13,19,5,2,'#b9542d');r(16,12,4,3,'#f29a45');r(19,10,3,3,'#ef913b');
+          const flame= Math.sin(animation*8)>0? '#ffd34e':'#ff9f36'; r(19,6,3,5,'#e04c32');r(20,3,3,5,flame);r(21,4,2,3,'#fff09b');r(11,8,2,2,'#49312a');r(15,8,2,2,'#49312a');r(12,11,3,1,'#f6e5ba');
+        } else if (name==='Squirtle') {
+          r(5,11,12,8,'#6ab9d5');r(5,5,10,8,'#7bcde0');r(3,7,4,4,'#6ab9d5');r(14,10,7,8,'#91664a');r(15,11,5,6,'#c19161');r(16,12,3,4,'#e2bc7c');
+          r(7,13,7,4,'#f0d8a0');r(5,17,4,4,'#5b9ebc');r(13,17,4,4,'#5b9ebc');r(8,8,2,2,'#2a4a58');r(12,8,2,2,'#2a4a58');r(10,10,2,1,'#f6ebd1');r(2,14,4,3,'#6ab9d5');r(1,12,3,3,'#6ab9d5');
+        } else if (name==='Pidgey') {
+          r(6,8,12,10,'#e2d7af');r(8,5,9,7,'#f1e7c9');r(5,11,7,6,'#b4b9a0');r(15,7,6,3,'#b6a77a');r(20,8,3,2,'#d89a48');r(9,9,2,2,'#343c35');
+          r(5,16,3,4,'#8a7958');r(13,17,3,4,'#8a7958');r(3,10,4,3,'#f5efdc');r(9,4,4,3,'#f5efdc');r(13,4,4,3,'#c3b78d');
+        } else if (name==='Rattata') {
+          r(5,9,14,10,'#a96d91');r(7,6,10,8,'#cb8dae');r(5,5,4,4,'#b67a9c');r(14,5,4,4,'#b67a9c');r(8,10,2,2,'#342d36');r(15,10,2,2,'#342d36');
+          r(11,13,4,2,'#f2d4de');r(8,19,4,3,'#815477');r(15,19,4,3,'#815477');r(18,13,4,3,'#9f5c85');r(2,15,5,2,'#bb83a5');
+        } else if (name==='Charizard') {
+          r(9,8,8,10,'#e46e39');r(8,4,8,8,'#f28a43');r(6,6,4,4,'#f28a43');r(14,6,4,4,'#f28a43');
+          r(2,5,7,5,'#4d8c9b');r(0,2,9,4,'#6fb5bf');r(15,5,7,5,'#4d8c9b');r(15,2,9,4,'#6fb5bf');r(9,12,3,7,'#e4773a');r(14,13,3,5,'#df6233');
+          r(6,17,5,4,'#ca5b31');r(14,17,5,4,'#ca5b31');r(3,19,6,2,'#9e482e');r(14,19,6,2,'#9e482e');r(17,12,4,3,'#ec853e');
+          const flame=Math.sin(animation*7)>0?'#ffdf5a':'#f58a37';r(19,10,3,4,'#dc4934');r(20,7,3,5,flame);r(21,8,2,3,'#fff1a2');r(10,7,2,2,'#4c302b');r(14,7,2,2,'#4c302b');
+        }
+        ctx.restore();
+      }
+    
+      function drawDialogueBox() {
+        if(!dialog)return;
+        rect(3,107,234,50,'#202e43');rect(5,109,230,46,'#f8f7e8');rect(8,112,224,40,'#fffdf1');
+        rect(5,109,230,2,'#8b9aaa');rect(5,153,230,2,'#8b9aaa');
+        const line=dialog.lines[dialog.index]||'', visible=line.slice(0,dialog.shown);
+        const lines=wrapText(visible,39).slice(0,3);
+        lines.forEach((lineText,i)=>drawPixelText(lineText,13,118+i*9,'#35465a',1));
+        if(Math.floor(elapsed*3)%2===0) {
+          if(dialog.shown>=line.length) drawPixelText('>',222,146,'#35465a',1);
+          else drawPixelText('.',222,146,'#35465a',1);
+        }
+      }
+      function wrapText(text,max) {
+        const words=String(text).split(/\s+/),out=[];let line='';
+        for(const word of words){if(!line)line=word;else if((line+' '+word).length<=max)line+=' '+word;else{out.push(line);line=word;}}
+        if(line)out.push(line);return out;
+      }
+      function drawStarterMenu() {
+        rect(5,7,230,146,'#24384c');rect(7,9,226,142,'#faf8e8');rect(9,11,222,138,'#ffffff');
+        drawPixelText('CHOOSE A POKEMON',16,16,'#24384c',1);
+        STARTERS.forEach((name,i)=>{
+          const y=40+i*21;
+          rect(14,y-10,100,17,i===menuIndex?'#dcebd5':'#fffdf1');
+          drawPixelText(i===menuIndex?'>':' ',17,y-4,'#293d50',1); drawPixelText(name,29,y-4,'#293d50',1);
+          if(i===menuIndex) rect(16,y+5,94,1,'#a6c59b');
+        });
+        const name=STARTERS[menuIndex], mon=SPECIES[name];
+        drawCreature(name,171,64,46,'front',elapsed);
+        drawPixelText(`${mon.type} TYPE`,127,91,'#344b5d',1);
+        drawPixelText(`HP ${mon.hp}`,127,102,'#344b5d',1); drawPixelText(`ATK ${mon.attack}`,127,112,'#344b5d',1);
+        wrapText(mon.desc,29).slice(0,2).forEach((lineText,i)=>drawPixelText(lineText,16,121+i*7,'#344b5d',1));
+        drawPixelText('LEFT/RIGHT - A: SELECT',16,141,'#6b7b73',1);
+      }
+      function drawStarterConfirm() {
+        const name=STARTERS[selectedStarter];
+        rect(26,37,188,84,'#263b51');rect(29,40,182,78,'#fffdf1');
+        drawPixelText(`TAKE ${name}?`,42,48,'#283c50',1);
+        ['YES','NO'].forEach((s,i)=>{const y=72+i*18;if(menuIndex===i)rect(38,y-9,93,14,'#dcebd5');drawPixelText(menuIndex===i?'>':' ',42,y-4,'#293d50',1);drawPixelText(s,55,y-4,'#293d50',1);});
+        drawCreature(name,174,81,36,'front',elapsed);
+      }
+      function drawBattleBox() {
+        // Battle field background. HUD geometry lives on the fixed 240x160 logical
+        // canvas, so every label/bar is anchored to a known panel and cannot clip
+        // when the page canvas is resized by CSS.
+        rect(0,0,240,160,'#d9e9d5');
+        rect(0,36,240,42,'#bddcc1');
+        rect(0,66,240,42,'#8abd8e');
+        rect(0,91,240,69,'#6fa56a');
+        rect(126,54,104,27,'#a6c98e'); rect(134,59,90,19,'#8dbd79');
+        rect(10,85,112,27,'#a1c98b'); rect(18,90,96,19,'#8cbc75');
+
+        const foeName = `${battle.kind==='trainer'?'BLUE':'WILD'} ${battle.foe.name}`;
+        const foePulse = clamp(battle.foeHit || 0, 0, 1);
+        // Opponent info card: separate name/level row from the HP row.
+        rect(4,4,122,35,foePulse>0?'#d8a59d':'#384c60');
+        rect(6,6,118,31,'#fffdf1');
+        drawPixelText(fitPixelText(foeName, 17),11,10,'#2d4153',1);
+        drawPixelText(`LV${battle.foe.level}`,119,10,'#2d4153',1,'right');
+        drawPixelText('HP',11,22,'#2d4153',1);
+        rect(24,22,91,7,'#d3d7c9');
+        rect(25,23,89,5,'#aeb9a7');
+        const foeRatio = clamp((battle.displayFoeHp ?? battle.foe.hp) / battle.foe.maxHp, 0, 1);
+        const foeBarColor = foeRatio < 0.25 ? '#d05c4e' : foeRatio < 0.5 ? '#d5b34b' : '#68af65';
+        if (foePulse > 0) { ctx.globalAlpha = 0.25 * Math.sin((1-foePulse)*Math.PI); rect(23,21,93,9,'#e06f62'); ctx.globalAlpha = 1; }
+        rect(25,23,89*foeRatio,5,foeBarColor);
+
+        const foeProgress = battle.anim && battle.anim.target==='foe'
+          ? easeOutCubic(1 - battle.anim.time / (battle.anim.duration || 0.34)) : 0;
+        const foeShift = battle.anim && battle.anim.target==='foe' ? Math.sin(Math.PI*foeProgress)*12 : 0;
+        if (battle.anim && battle.anim.target==='foe') ctx.globalAlpha = 1 - 0.28*Math.sin(Math.PI*foeProgress);
+        drawCreature(battle.foe.name,174-foeShift,46,43,'front',elapsed);
+        ctx.globalAlpha=1;
+
+        const playerProgress = battle.anim && battle.anim.target==='player'
+          ? easeOutCubic(1 - battle.anim.time / (battle.anim.duration || 0.34)) : 0;
+        const playerShift = battle.anim && battle.anim.target==='player' ? Math.sin(Math.PI*playerProgress)*-12 : 0;
+        if (battle.anim && battle.anim.target==='player') ctx.globalAlpha = 1 - 0.28*Math.sin(Math.PI*playerProgress);
+        drawCreature(party.name,48+playerShift,93,44,'back',elapsed);
+        ctx.globalAlpha=1;
+
+        const playerPulse = clamp(battle.playerHit || 0, 0, 1);
+        // Player card is taller and has three clear zones: name/level, HP label/bar,
+        // then the numeric HP readout. Neither text nor bars share vertical space.
+        rect(103,75,133,34,playerPulse>0?'#d8a59d':'#384c60');
+        rect(105,77,129,30,'#fffdf1');
+        drawPixelText(fitPixelText(`RED ${party.name}`, 20),111,80,'#2d4153',1);
+        drawPixelText(`LV${party.level}`,228,80,'#2d4153',1,'right');
+        drawPixelText('HP',111,91,'#2d4153',1);
+        rect(124,91,62,7,'#d3d7c9');
+        rect(125,92,60,5,'#aeb9a7');
+        const playerRatio = clamp((battle.displayPlayerHp ?? party.hp) / party.maxHp, 0, 1);
+        const playerBarColor = playerRatio < 0.25 ? '#d05c4e' : playerRatio < 0.5 ? '#d5b34b' : '#68af65';
+        if (playerPulse > 0) { ctx.globalAlpha = 0.25 * Math.sin((1-playerPulse)*Math.PI); rect(123,90,64,9,'#e06f62'); ctx.globalAlpha=1; }
+        rect(125,92,60*playerRatio,5,playerBarColor);
+        drawPixelText(`${party.hp}/${party.maxHp}`,228,91,'#2d4153',1,'right');
+
+        // Command / message panel stays inside the bottom safe region (y=111..158).
+        rect(3,111,234,46,'#263b50');
+        rect(5,113,230,42,'#fffdf1');
+        if (battle.mode==='message') {
+          const line=battle.messages[battle.messageIndex]||'';
+          const lines=wrapText(line.slice(0,battle.shown),39).slice(0,3);
+          lines.forEach((lineText,i)=>drawPixelText(lineText,11,120+i*9,'#2d4153',1));
+          if(Math.floor(elapsed*3)%2===0) drawPixelText('>',222,146,'#2d4153',1);
+        } else if(battle.mode==='moves') {
+          drawPixelText('CHOOSE A MOVE',11,116,'#2d4153',1);
+          const moves=[party.moves[0],party.moves[1],'BACK'];
+          moves.forEach((moveName,i)=>{
+            const x=13+(i%2)*106, y=136+Math.floor(i/2)*10;
+            if(battle.moveIndex===i) rect(x-2,y-8,100,11,'#dcebd5');
+            drawPixelText(`${battle.moveIndex===i?'>':''}${moveName}`,x,y-4,'#2d4153',1);
+          });
+        } else {
+          drawPixelText('WHAT WILL RED DO?',11,122,'#2d4153',1);
+          rect(145,116,84,34,'#ebeedf'); rect(146,117,82,32,'#c6d5c1');
+          const opts=['FIGHT','BAG','POKEMON','RUN'];
+          opts.forEach((opt,i)=>{
+            const x=151+(i%2)*40, y=128+Math.floor(i/2)*13;
+            if(battle.commandIndex===i) rect(x-3,y-8,39,11,'#fffdf1');
+            drawPixelText(`${battle.commandIndex===i?'>':''}${opt}`,x,y-4,'#2d4153',1);
+          });
+        }
+      }
+
+      // Pixel-width-aware clipping for compact HUD rows; never let labels intrude
+      // into the LV column on short or narrow panels.
+      function fitPixelText(value, maxChars) {
+        const valueText = String(value).toUpperCase();
+        return valueText.length > maxChars ? valueText.slice(0, Math.max(0, maxChars-1)) + '.' : valueText;
+      }
+
+      function drawLevelToast() {
+        const toast = feedback.levelToast;
+        if (!toast) return;
+        const progress = clamp(toast.time / toast.duration, 0, 1);
+        const intro = easeOutBack(Math.min(1, toast.time / 0.22));
+        const fadeOut = toast.time > toast.duration - 0.28 ? clamp((toast.duration-toast.time)/0.28,0,1) : 1;
+        const alpha = Math.min(1, fadeOut) * (progress < 0.08 ? progress / 0.08 : 1);
+        const y = 5 - (1-intro)*7;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        rect(67,y,106,19,'#283b4b'); rect(69,y+2,102,15,'#fff3b6');
+        drawPixelText(`LEVEL UP!  LV${toast.level}`,120,y+7,'#374656',1,'center');
+        ctx.restore();
+      }
+      function drawTitle() {
+        rect(0,0,240,160,'#18354a');
+        // twilight sky, hills, and a warm horizon
+        rect(0,0,240,62,'#203d59');rect(0,62,240,32,'#355b61');rect(0,94,240,66,'#244f42');
+        rect(0,81,56,16,'#316b4b');rect(24,72,43,25,'#37784c');rect(151,79,89,20,'#316b4b');rect(180,66,39,33,'#37784c');
+        rect(0,116,240,44,'#367044');rect(0,135,240,25,'#2e623e');
+        for(let x=0;x<240;x+=16){rect(x,141+(x%3)*2,9,2,'#4d8a4d');}
+        // A custom Charizard silhouette is drawn from pixels, not a game asset.
+        drawCreature('Charizard',120,92,76,'front',elapsed);
+        ctx.textAlign='center';
+        ctx.font='bold 23px monospace';ctx.lineWidth=3;ctx.strokeStyle='#27354b';ctx.strokeText('POKéMON',120,29);
+        ctx.fillStyle='#ffdf55';ctx.fillText('POKéMON',120,29);
+        ctx.font='bold 16px monospace';ctx.lineWidth=3;ctx.strokeStyle='#26364a';ctx.strokeText('FIRE RED',120,48);ctx.fillStyle='#f4f5e9';ctx.fillText('FIRE RED',120,48);
+        rect(67,54,106,2,'#e8c76e');
+        if(Math.floor(elapsed*2)%2===0) drawPixelText('PRESS START',120,128,'#fff8dd',1,'center');
+        drawPixelText('KANTO OPENING ADVENTURE',120,144,'#c3d8ca',1,'center');
+        ctx.textAlign='left';
+      }
+    
+      function render() {
+        ctx.clearRect(0,0,VIEW_W,VIEW_H);
+        if(state===STATE.TITLE){drawTitle();return;}
+        const camX=camera.x,camY=camera.y;
+        const isIndoor = scene==='upstairs' || scene==='downstairs' || scene==='lab';
+        if(isIndoor) {
+          const indoorX = Math.max(0, Math.floor((VIEW_W-SIZE[scene].w*TILE)/2));
+          const indoorY = scene==='lab' ? -camY : Math.max(0, Math.floor((VIEW_H-SIZE[scene].h*TILE)/2));
+          ctx.save(); ctx.translate(indoorX,indoorY);
+        }
+        if(scene==='upstairs') drawUpstairs();
+        else if(scene==='downstairs') drawDownstairs();
+        else if(scene==='lab') drawLab();
+        else if(scene==='town') drawTown(camX,camY);
+        else if(scene==='route') drawRoute(camX,camY);
+        const pos=interpolatedPlayer();
+        const walking=!!player.move;
+        drawTrainer(pos.x,pos.y,'red',player.facing,walking,player.walkClock,scene==='town'||scene==='route'?camX:0,scene==='town'||scene==='route'?camY:0,pos.x,pos.y);
+        if (scene === 'upstairs') drawStaircaseForeground(9, 5, 2, 2);
+        else if (scene === 'downstairs') drawStaircaseForeground(10, 2, 2, 2);
+        if(isIndoor) ctx.restore();
+        if(state===STATE.DIALOGUE) drawDialogueBox();
+        else if(state===STATE.MENU) { if(menuKind==='starter')drawStarterMenu();else drawStarterConfirm(); }
+        else if(state===STATE.BATTLE) drawBattleBox();
+        drawLevelToast();
+        // Soft transition veil: a short eased vignette-like fade masks scene swaps
+        // without hiding controls or causing a hard black frame.
+        if (feedback.transition > 0) {
+          const t = 1 - feedback.transition / 0.24;
+          const alpha = 0.24 * Math.sin(Math.PI * clamp(t,0,1));
+          ctx.globalAlpha = alpha;
+          rect(0,0,VIEW_W,VIEW_H,'#101b22');
+          ctx.globalAlpha = 1;
+        }
+      }
+
+      // Touch buttons are real input controls, not decorative UI.
+      document.querySelectorAll('[data-game-key]').forEach(button=>{
+        const code=button.getAttribute('data-game-key');
+        const down=e=>{e.preventDefault();try{button.setPointerCapture(e.pointerId);}catch(_){} if(!held.has(code))pressed.add(code);held.add(code);canvas.focus({preventScroll:true});};
+        const up=e=>{e.preventDefault();held.delete(code);};
+        button.addEventListener('pointerdown',down);button.addEventListener('pointerup',up);button.addEventListener('pointercancel',up);button.addEventListener('lostpointercapture',up);button.addEventListener('contextmenu',e=>e.preventDefault());
+      });
+      canvas.addEventListener('click',()=>{canvas.focus({preventScroll:true});if(!gameVisible())return;if(state===STATE.TITLE)startNewGame();else pressed.add('Enter');});
+    
+      function frame(now) {
+        const dt=lastFrame?Math.min(0.04,(now-lastFrame)/1000):0;
+        lastFrame=now;
+        // Avoid burning CPU while the portfolio is on another page or tab.
+        if (gameVisible()) {
+          update(dt);
+          render();
+          pressed.clear();
+        } else {
+          pressed.clear();
+          held.clear();
+        }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+
+        // Initialize Converter
+    runBaseConversion();
+  </script>
+
+
+  <!-- Wordle and Battleship game engines, scoped to their Projects tabs. -->
+  <script>
+(() => {
+  'use strict';
+
+  // The enclosing personal portfolio owns project-tab navigation. These references
+  // let Wordle keyboard input run only while its project tab is active.
+  const panels = {
+    wordle: document.getElementById('tab-wordle'),
+    battleship: document.getElementById('tab-battleship')
+  };
+
+  // WORDLE -------------------------------------------------------------
+  const WORDS = ( `about above actor acute adieu admit adopt adult after again agent agree ahead alarm album alert alike alive allow alone along alter among anger angle angry apart apple apply arena argue arise armed armor aroma arose aside asset audio audit avoid award aware badly baker bases basic beach began begin being below bench berry birth black blame blank blast blaze bleak blend bless blind block blood bloom board boast bonus booth bound brain brand brave bread break breed brief bring broad broke brown brush build built burst buyer cabin cable camel candy carry catch cause chain chair chalk charm chart chase cheap check cheek chess chest chief child china choir chose civil claim class clean clear clerk click climb clock close cloth cloud coach coast color comic count court cover craft crane crash cream creek crime crisp cross crowd crown crude crush curve cycle daily dance dated dealt death decay delay depth devil diary digit dirty doubt dozen draft drama drawn dream dress dried drill drink drive drove dying eager early earth eight elbow elder elect elite else email empty enemy enjoy enter entry equal error essay event every exact exist extra faith false fancy fault feast fence fever field fifth fifty fight final first fixed flame flash fleet flesh float floor flour fluid focus force forth forty forum found frame frank fraud fresh front fruit fully funny gamma giant given glass globe glory glove going grace grade grain grand grant grass great green greet grief grind gross group grown guard guess guest guide guild habit happy harry harsh haste hasty hatch haven heart heavy hello hence hobby honey honor horse hotel house human humor ideal image imply index inner input issue ivory japan joint judge juice knife knock known label labor large laser later laugh layer learn lease least leave legal lemon level light limit linen liquid listen litter local lodge logic loose lover lower lucky lunch lying magic major maker march match maybe mayor medal media mercy merge merit merry metal meter might minor minus mixed model money month moral motor mount mouse mouth movie music naive naked nerve never newly night noble noise north noted novel nurse occur ocean offer often olive order other ought outer owner paint panel panic paper party patch pause peace pearl phase phone photo piano piece pilot pitch place plain plane plant plate point pound power press price pride prime print prior prize proof proud prove queen quick quiet quite quota quote radar radio raise range rapid ratio reach react ready realm rebel refer relax relay renew reply right rigid rival river roast robot rocky roman rough round route royal rural sadly safer saint salad scale scare scene scope score scout scrap screen screw script search season second secret seed sleepy sense serve seven shade shake shall shame shape share sharp shave shelf shell shift shine shirt shock shoot shore short shown shrug sight signal silly since sixth sixty skill skirt skull slave sleep slice slide slight slate small smart smile smoke solid solve sorry sound south space spare speak speed spend spent spice spicy spill spine spite split spoke sport spray squad staff stage stain stair stake stale stand stare start state steam steel steep steer stern stick stiff still stock stone stood store storm story strip stuck study stuff style sugar suite sunny super swear sweet swift swing switch sword table taken taste tasty teach teeth tempo thank theft their theme there these thick thief thing think third those three threw throw thumb tiger tight timer title today topic total touch tough tower trace track trade train treat trend trial tribe trick tried tries troop truly trust truth twice uncle under union unite unity until upper upset urban usage usual valid value valve vapor vicar video virus visit vital vivid vocal voice waste watch water weary weave weigh weird whale wheat wheel where which while white whole whose woman women world worry worse worst worth would wound write wrong wrote yield young youth ` ).trim().split(/\s+/).filter(word => word.length === 5);
+  const WORD_SET = new Set(WORDS);
+  const wordleBoard = document.getElementById('wordle-board');
+  const keyboard = document.getElementById('wordle-keyboard');
+  const message = document.getElementById('wordle-message');
+  const triesStat = document.getElementById('stat-tries');
+  const winsStat = document.getElementById('stat-wins');
+  const streakStat = document.getElementById('stat-streak');
+  let secret = '';
+  let current = '';
+  let guesses = [];
+  let gameOver = false;
+  let keyStates = {};
+  let wins = 0;
+  let streak = 0;
+
+  function pickSecret() {
+    // Choose uniformly from the full supported five-letter pool.
+    return WORDS[Math.floor(Math.random() * WORDS.length)].toUpperCase();
+  }
+  function setWordleMessage(text, tone = '') {
+    message.textContent = text;
+    message.className = `wordle-message${tone ? ` ${tone}` : ''}`;
+  }
+  function initWordleDom() {
+    wordleBoard.innerHTML = '';
+    for (let i = 0; i < 30; i++) {
+      const tile = document.createElement('div');
+      tile.className = 'word-tile';
+      tile.id = `tile-${i}`;
+      tile.setAttribute('aria-hidden', 'true');
+      wordleBoard.appendChild(tile);
+    }
+    keyboard.querySelectorAll('.keyboard-row').forEach((row, rowIndex) => {
+      row.innerHTML = '';
+      const letters = row.dataset.row;
+      if (rowIndex === 2) {
+        row.appendChild(makeKey('Enter', 'wide', 'Enter guess'));
+      }
+      for (const letter of letters) row.appendChild(makeKey(letter, '', `Type ${letter}`));
+      if (rowIndex === 2) row.appendChild(makeKey('⌫', 'wide', 'Delete last letter', 'Backspace'));
+    });
+  }
+  function makeKey(label, extraClass, ariaLabel, value = label) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `key ${extraClass}`.trim();
+    button.textContent = label;
+    button.dataset.key = value;
+    button.setAttribute('aria-label', ariaLabel);
+    button.addEventListener('click', () => { handleWordleKey(value); button.blur(); });
+    return button;
+  }
+  function renderWordle() {
+    for (let row = 0; row < 6; row++) {
+      const committed = guesses[row];
+      const letters = committed ? committed.word : (row === guesses.length && !gameOver ? current : '');
+      for (let col = 0; col < 5; col++) {
+        const tile = document.getElementById(`tile-${row * 5 + col}`);
+        tile.textContent = letters[col] || '';
+        tile.className = 'word-tile';
+        tile.style.removeProperty('--i');
+        if (letters[col]) tile.classList.add('filled');
+        if (committed) {
+          tile.classList.add(committed.result[col]);
+          tile.style.setProperty('--i', col);
+          if (committed.animate) tile.classList.add('reveal');
+        }
+      }
+      if (committed) committed.animate = false;
+    }
+    keyboard.querySelectorAll('.key').forEach(key => {
+      key.classList.remove('correct', 'present', 'absent');
+      const value = key.dataset.key;
+      if (/^[A-Z]$/.test(value) && keyStates[value]) key.classList.add(keyStates[value]);
+      key.disabled = gameOver;
+    });
+    document.getElementById('wordle-again').disabled = false;
+    document.getElementById('wordle-clear').disabled = gameOver || current.length === 0;
+    triesStat.textContent = `${guesses.length}/6`;
+    winsStat.textContent = String(wins);
+    streakStat.textContent = String(streak);
+  }
+  function gradeGuess(guess, answer) {
+    const result = Array(5).fill('absent');
+    const remaining = {};
+    // Assign exact matches first so duplicate letters are scored correctly.
+    for (let i = 0; i < 5; i++) {
+      if (guess[i] === answer[i]) result[i] = 'correct';
+      else remaining[answer[i]] = (remaining[answer[i]] || 0) + 1;
+    }
+    for (let i = 0; i < 5; i++) {
+      if (result[i] === 'correct') continue;
+      if (remaining[guess[i]] > 0) {
+        result[i] = 'present';
+        remaining[guess[i]]--;
+      }
+    }
+    return result;
+  }
+  function updateKeyboard(guess, result) {
+    const rank = { absent: 1, present: 2, correct: 3 };
+    for (let i = 0; i < guess.length; i++) {
+      const letter = guess[i];
+      if (!keyStates[letter] || rank[result[i]] > rank[keyStates[letter]]) keyStates[letter] = result[i];
+    }
+  }
+  function handleWordleKey(key) {
+    if (gameOver) return;
+    if (key === 'Enter') {
+      if (current.length < 5) {
+        setWordleMessage('Your guess needs five letters.', 'bad');
+        return;
+      }
+      const word = current.toUpperCase();
+      // A generously sized local word list supports offline play without external APIs.
+      if (!WORD_SET.has(word.toLowerCase())) {
+        setWordleMessage('That word is not in the word list.', 'bad');
+        return;
+      }
+      const result = gradeGuess(word, secret);
+      guesses.push({ word, result, animate: true });
+      updateKeyboard(word, result);
+      current = '';
+      renderWordle();
+      if (word === secret) {
+        gameOver = true; wins++; streak++;
+        setWordleMessage(guesses.length === 1 ? 'Brilliant! Solved in one guess.' : `Excellent! Solved in ${guesses.length} ${guesses.length === 1 ? 'guess' : 'guesses'}.`, 'good');
+        renderWordle();
+      } else if (guesses.length >= 6) {
+        gameOver = true; streak = 0;
+        setWordleMessage(`Out of guesses — the word was ${secret}.`, 'bad');
+        renderWordle();
+      } else {
+        setWordleMessage('Guess submitted. Use the color clues.');
+      }
+      return;
+    }
+    if (key === 'Backspace') {
+      current = current.slice(0, -1);
+      setWordleMessage('');
+      renderWordle();
+      return;
+    }
+    if (/^[A-Za-z]$/.test(key) && current.length < 5) {
+      current += key.toUpperCase();
+      setWordleMessage('');
+      renderWordle();
+    }
+  }
+  function resetWordle() {
+    secret = pickSecret();
+    current = '';
+    guesses = [];
+    gameOver = false;
+    keyStates = {};
+    setWordleMessage('Guess the word to get started.');
+    renderWordle();
+  }
+  document.addEventListener('keydown', event => {
+    if (!panels.wordle.classList.contains('active')) return;
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    // Preserve native Enter behavior for focused buttons (notably the game tabs).
+    if (event.key === 'Enter' && event.target instanceof Element && event.target.closest('button, a')) return;
+    if (event.key === 'Enter' || event.key === 'Backspace' || /^[a-z]$/i.test(event.key)) {
+      event.preventDefault();
+      handleWordleKey(event.key.length === 1 ? event.key.toUpperCase() : event.key);
+    }
+  });
+  document.getElementById('wordle-again').addEventListener('click', resetWordle);
+  document.getElementById('wordle-clear').addEventListener('click', () => {
+    if (gameOver) return;
+    current = '';
+    setWordleMessage('Current row cleared.');
+    renderWordle();
+  });
+  initWordleDom();
+  resetWordle();
+
+  // BATTLESHIP ---------------------------------------------------------
+  const SIZE = 10;
+  const SHIP_DEFS = [
+    { name: 'Carrier', length: 5 },
+    { name: 'Battleship', length: 4 },
+    { name: 'Cruiser', length: 3 },
+    { name: 'Submarine', length: 3 },
+    { name: 'Destroyer', length: 2 }
+  ];
+  const letters = 'ABCDEFGHIJ'.split('');
+  let playerFleet = [];
+  let enemyFleet = [];
+  let playerBoard = [];
+  let enemyBoard = [];
+  let phase = 'setup'; // setup | player | ai | won | lost
+  let playerShots = 0;
+  let playerHits = 0;
+  let aiShots = 0;
+  let aiHits = 0;
+  let aiTargetQueue = [];
+  let aiTimer = null;
+  let battleMessage = '';
+
+  const playerGridEl = document.getElementById('player-grid');
+  const targetGridEl = document.getElementById('target-grid');
+  const battleStatusEl = document.getElementById('battle-status');
+  const turnDot = document.getElementById('turn-dot');
+  const turnLabel = document.getElementById('turn-label');
+  const fleetListEl = document.getElementById('fleet-list');
+  const randomizeButton = document.getElementById('randomize-fleet');
+  const startButton = document.getElementById('start-battle');
+
+  function blankBoard() {
+    return Array.from({ length: SIZE }, () => Array.from({ length: SIZE }, () => ({ shipId: null, attacked: false })));
+  }
+  function randomInt(max) { return Math.floor(Math.random() * max); }
+  function createRandomFleet() {
+    // Randomize until every vessel has a legal in-bounds, non-overlapping placement.
+    for (let restart = 0; restart < 80; restart++) {
+      const board = blankBoard();
+      const fleet = [];
+      let success = true;
+      for (let shipId = 0; shipId < SHIP_DEFS.length; shipId++) {
+        const def = SHIP_DEFS[shipId];
+        let placed = false;
+        for (let attempt = 0; attempt < 700; attempt++) {
+          const horizontal = Math.random() < .5;
+          const row = randomInt(SIZE);
+          const col = randomInt(SIZE);
+          const cells = [];
+          for (let step = 0; step < def.length; step++) {
+            const r = row + (horizontal ? 0 : step);
+            const c = col + (horizontal ? step : 0);
+            if (r >= SIZE || c >= SIZE) break;
+            cells.push([r, c]);
+          }
+          if (cells.length !== def.length) continue;
+          if (cells.some(([r, c]) => board[r][c].shipId !== null)) continue;
+          const ship = { id: shipId, name: def.name, length: def.length, hits: 0, sunk: false, cells };
+          for (const [r, c] of cells) board[r][c].shipId = shipId;
+          fleet.push(ship);
+          placed = true;
+          break;
+        }
+        if (!placed) { success = false; break; }
+      }
+      if (success && fleet.length === SHIP_DEFS.length) return { board, fleet };
+    }
+    // Defensive fallback: deterministic horizontal rows guarantee non-overlap.
+    const board = blankBoard();
+    const fleet = [];
+    SHIP_DEFS.forEach((def, id) => {
+      const row = id * 2;
+      const cells = Array.from({ length: def.length }, (_, i) => [row, i]);
+      cells.forEach(([r, c]) => { board[r][c].shipId = id; });
+      fleet.push({ id, name: def.name, length: def.length, hits: 0, sunk: false, cells });
+    });
+    return { board, fleet };
+  }
+  function setBattleMessage(text, tone = '') {
+    battleMessage = text;
+    battleStatusEl.textContent = text;
+    battleStatusEl.dataset.tone = tone;
+  }
+  function createAxes() {
+    for (const id of ['your-axis', 'target-axis']) {
+      const axis = document.getElementById(id);
+      axis.innerHTML = '';
+      const corner = document.createElement('span');
+      corner.setAttribute('aria-hidden', 'true');
+      axis.appendChild(corner);
+      letters.forEach(letter => {
+        const span = document.createElement('span');
+        span.textContent = letter;
+        axis.appendChild(span);
+      });
+    }
+  }
+  function renderGrid(element, board, view) {
+    element.innerHTML = '';
+    for (let row = 0; row < SIZE; row++) {
+      const rowLabel = document.createElement('span');
+      rowLabel.className = 'row-index';
+      rowLabel.textContent = String(row + 1);
+      rowLabel.setAttribute('aria-hidden', 'true');
+      element.appendChild(rowLabel);
+      for (let col = 0; col < SIZE; col++) {
+        const cell = board[row][col];
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'grid-cell';
+        button.dataset.row = row;
+        button.dataset.col = col;
+        let label = `${letters[col]}${row + 1}`;
+        if (view === 'player') {
+          button.setAttribute('aria-label', `Your board, ${label}${cell.shipId !== null ? `, ${playerFleet[cell.shipId]?.name || 'ship'}` : ', water'}${cell.attacked ? ', attacked' : ''}`);
+          if (cell.shipId !== null) button.classList.add('ship-cell');
+          if (cell.attacked && cell.shipId !== null) { button.classList.add('hit-cell'); button.innerHTML = '<span class="marker">✹</span>'; }
+          else if (cell.attacked) { button.classList.add('miss-cell'); button.innerHTML = '<span class="marker">•</span>'; }
+          button.disabled = true;
+        } else {
+          button.setAttribute('aria-label', `Target ${label}${cell.attacked ? (cell.shipId !== null ? ', hit' : ', miss') : ', not attacked'}`);
+          if (cell.attacked && cell.shipId !== null) { button.classList.add('hit-cell'); button.innerHTML = '<span class="marker">✹</span>'; }
+          else if (cell.attacked) { button.classList.add('miss-cell'); button.innerHTML = '<span class="marker">•</span>'; }
+          button.disabled = phase !== 'player' || cell.attacked;
+          button.addEventListener('click', () => playerAttack(row, col));
+        }
+        element.appendChild(button);
+      }
+    }
+  }
+  function renderFleet() {
+    fleetListEl.innerHTML = '';
+    playerFleet.forEach(ship => {
+      const item = document.createElement('div');
+      item.className = `fleet-item${ship.sunk ? ' sunk' : ''}`;
+      const bar = document.createElement('div');
+      bar.className = 'fleet-bar';
+      for (let i = 0; i < ship.length; i++) {
+        const segment = document.createElement('span');
+        if (i < ship.hits) segment.style.background = '#f16b73';
+        bar.appendChild(segment);
+      }
+      const name = document.createElement('strong');
+      name.textContent = ship.name;
+      const detail = document.createElement('small');
+      detail.textContent = ship.sunk ? 'Sunk' : `${ship.length - ship.hits}/${ship.length} afloat`;
+      item.append(bar, name, detail);
+      fleetListEl.appendChild(item);
+    });
+  }
+  function remaining(fleet) { return fleet.filter(ship => !ship.sunk).length; }
+  function renderBattleStats() {
+    document.getElementById('player-ships-stat').textContent = String(remaining(playerFleet));
+    document.getElementById('enemy-ships-stat').textContent = String(remaining(enemyFleet));
+    document.getElementById('player-shots-stat').textContent = `${playerHits} / ${playerShots - playerHits}`;
+    document.getElementById('enemy-shots-stat').textContent = `${aiHits} / ${aiShots - aiHits}`;
+    const isSetup = phase === 'setup';
+    randomizeButton.disabled = !isSetup;
+    startButton.disabled = phase !== 'setup';
+    startButton.textContent = phase === 'setup' ? '▶ Start Battle' : phase === 'player' || phase === 'ai' ? 'Battle in Progress' : 'Battle Complete';
+    if (phase === 'setup') { turnDot.className = 'turn-dot waiting'; turnLabel.textContent = 'Setup phase'; }
+    else if (phase === 'player') { turnDot.className = 'turn-dot'; turnLabel.textContent = 'Your turn — choose a target'; }
+    else if (phase === 'ai') { turnDot.className = 'turn-dot waiting'; turnLabel.textContent = 'Computer is firing…'; }
+    else { turnDot.className = 'turn-dot finished'; turnLabel.textContent = phase === 'won' ? 'Victory' : 'Defeat'; }
+  }
+  function renderBattle() {
+    renderGrid(playerGridEl, playerBoard, 'player');
+    renderGrid(targetGridEl, enemyBoard, 'target');
+    renderFleet();
+    renderBattleStats();
+  }
+  function resetBattle(messageText = 'Fleet ready. Randomize your ships or start the battle.') {
+    if (aiTimer) window.clearTimeout(aiTimer);
+    aiTimer = null;
+    const player = createRandomFleet();
+    const enemy = createRandomFleet();
+    playerBoard = player.board; playerFleet = player.fleet;
+    enemyBoard = enemy.board; enemyFleet = enemy.fleet;
+    phase = 'setup';
+    playerShots = 0; playerHits = 0; aiShots = 0; aiHits = 0;
+    aiTargetQueue = [];
+    setBattleMessage(messageText, 'warn');
+    renderBattle();
+  }
+  function startBattle() {
+    if (phase !== 'setup') return;
+    phase = 'player';
+    setBattleMessage('Battle started. Choose a coordinate on the Target Grid.', 'good');
+    renderBattle();
+  }
+  function getShip(fleet, cell) {
+    return cell.shipId === null ? null : fleet[cell.shipId];
+  }
+  function attack(board, fleet, row, col) {
+    const cell = board[row][col];
+    if (cell.attacked) return { valid: false, hit: false, sunk: null };
+    cell.attacked = true;
+    const ship = getShip(fleet, cell);
+    if (!ship) return { valid: true, hit: false, sunk: null };
+    ship.hits++;
+    if (ship.hits >= ship.length) {
+      ship.sunk = true;
+      return { valid: true, hit: true, sunk: ship };
+    }
+    return { valid: true, hit: true, sunk: null };
+  }
+  function playerAttack(row, col) {
+    if (phase !== 'player' || enemyBoard[row][col].attacked) return;
+    const result = attack(enemyBoard, enemyFleet, row, col);
+    if (!result.valid) return;
+    playerShots++;
+    if (result.hit) playerHits++;
+    const coordinate = `${letters[col]}${row + 1}`;
+    if (remaining(enemyFleet) === 0) {
+      phase = 'won';
+      setBattleMessage(`Victory! Your shot at ${coordinate} sank the last enemy ship.`, 'good');
+      renderBattle();
+      return;
+    }
+    if (result.sunk) setBattleMessage(`Direct hit at ${coordinate} — enemy ${result.sunk.name} sunk! The computer is taking its turn.`, 'good');
+    else if (result.hit) setBattleMessage(`Hit at ${coordinate}! The computer is taking its turn.`, 'good');
+    else setBattleMessage(`Miss at ${coordinate}. The computer is taking its turn.`, '');
+    phase = 'ai';
+    renderBattle();
+    aiTimer = window.setTimeout(aiAttack, 580);
+  }
+  function addAiTargetsAround(row, col) {
+    const candidates = [[row - 1, col], [row + 1, col], [row, col - 1], [row, col + 1]]
+      .filter(([r, c]) => r >= 0 && r < SIZE && c >= 0 && c < SIZE && !playerBoard[r][c].attacked)
+      .sort(() => Math.random() - .5);
+    for (const candidate of candidates) {
+      const key = candidate.join(',');
+      if (!aiTargetQueue.some(([r, c]) => `${r},${c}` === key)) aiTargetQueue.unshift(candidate);
+    }
+  }
+  function chooseAiTarget() {
+    while (aiTargetQueue.length) {
+      const [row, col] = aiTargetQueue.shift();
+      if (!playerBoard[row][col].attacked) return [row, col];
+    }
+    const available = [];
+    for (let row = 0; row < SIZE; row++) for (let col = 0; col < SIZE; col++) if (!playerBoard[row][col].attacked) available.push([row, col]);
+    return available.length ? available[randomInt(available.length)] : null;
+  }
+  function aiAttack() {
+    aiTimer = null;
+    if (phase !== 'ai') return;
+    const target = chooseAiTarget();
+    if (!target) return;
+    const [row, col] = target;
+    const result = attack(playerBoard, playerFleet, row, col);
+    if (!result.valid) return;
+    aiShots++;
+    if (result.hit) {
+      aiHits++;
+      addAiTargetsAround(row, col);
+    }
+    const coordinate = `${letters[col]}${row + 1}`;
+    if (remaining(playerFleet) === 0) {
+      phase = 'lost';
+      setBattleMessage(`Defeat. The computer sank your last ship at ${coordinate}. Restart to try again.`, 'bad');
+      renderBattle();
+      return;
+    }
+    phase = 'player';
+    if (result.sunk) setBattleMessage(`The computer hit ${coordinate} and sank your ${result.sunk.name}. Your turn — choose a target.`, 'bad');
+    else if (result.hit) setBattleMessage(`The computer hit your ship at ${coordinate}. Your turn — choose a target.`, 'bad');
+    else setBattleMessage(`The computer missed at ${coordinate}. Your turn — choose a target.`, 'good');
+    renderBattle();
+  }
+  document.getElementById('randomize-fleet').addEventListener('click', () => {
+    if (phase !== 'setup') return;
+    const player = createRandomFleet();
+    playerBoard = player.board;
+    playerFleet = player.fleet;
+    setBattleMessage('Fleet reshuffled. Deploy when you are ready.', 'warn');
+    renderBattle();
+  });
+  document.getElementById('start-battle').addEventListener('click', startBattle);
+  document.getElementById('restart-battle').addEventListener('click', () => resetBattle('New game ready. Your fleet and the enemy fleet have been reset.'));
+  createAxes();
+  resetBattle();
+})();
+  </script>
+</body>
+</html>
